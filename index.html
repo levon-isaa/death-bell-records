@@ -11,15 +11,34 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=0024558547">
+<link rel="stylesheet" href="assets/site.css?v=e6aaf83f6f">
 <link rel="preload" as="image" href="covers/2029983464-l.jpg" fetchpriority="high">
+<link rel="canonical" href="https://levon-isaa.github.io/death-bell-records/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Death Bell Records">
+<meta property="og:title" content="Death Bell Records">
+<meta property="og:description" content="Death Bell Records: independent techno label from Yerevan, Armenia. Hard groove, industrial and hypnotic techno, Death Bell Nights and the DBR Podcast.">
+<meta property="og:url" content="https://levon-isaa.github.io/death-bell-records/">
+<meta property="og:image" content="https://levon-isaa.github.io/death-bell-records/covers/2029983464-l.jpg">
+<meta property="og:image:alt" content="Cover of Controlled Damage EP by Tøtal">
+<meta name="twitter:card" content="summary">
 <script>
 // The loader plays when someone arrives at the site or reloads a page, not when they click between its own pages.
 (function () {
   var nav = performance.getEntriesByType ? performance.getEntriesByType("navigation")[0] : null, type = nav ? nav.type : "navigate";
-  var base = location.href.replace(/[^/]*([?#].*)?$/, "");
-  if (type === "back_forward" || (type === "navigate" && document.referrer.indexOf(base) === 0)) return;
+  var base = document.baseURI.replace(/[^/]*([?#].*)?$/, ""); // the site's root, also from pages in listen/ and free/
+  if (type === "back_forward" || (type === "navigate" && document.referrer.indexOf(base) === 0)) {
+    // no loader: start the rise-in from the first paint. Left to site.js, the hero showed, blinked out when the
+    // script arrived and faded back in.
+    document.documentElement.classList.add("intro");
+    return;
+  }
   document.documentElement.classList.add("is-loading");
+  // site.js normally lifts the loader. If it fails to load or crashes, or is still missing after 9 seconds,
+  // lift it here so nobody is left looking at the loader
+  var release = function () { document.documentElement.classList.remove("is-loading"); };
+  addEventListener("error", function (e) { if (e.target === window || (e.target && e.target.tagName === "SCRIPT")) release(); }, true);
+  setTimeout(release, 9000);
 })();
 // the browser skips the cross-fade between pages in a hidden tab; that is fine, so don't report it as an error
 ["pageswap", "pagereveal"].forEach(function (type) {
@@ -46,7 +65,9 @@
   </div>
 </div>
 
-<div class="ticker" aria-label="Latest releases"><div class="tk-track" id="ticker"></div></div>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="ticker"><div class="tk-track" id="ticker"></div></div>
 
 <header class="bar" id="bar">
   <div class="wrap">
@@ -66,7 +87,7 @@
   <span class="progress" id="progress" aria-hidden="true"></span>
 </header>
 
-<main data-page="home">
+<main id="main" tabindex="-1" data-page="home">
   <h1 class="sr">Death Bell Records, techno label from Yerevan</h1>
 
   <section class="hero" id="top" aria-labelledby="hero-h">
@@ -82,7 +103,7 @@
         </div></div>
         <div class="hero-copy">
           <p class="cat" aria-hidden="true">DBR091</p>
-          <h2 class="title-stack" id="hero-h"><span class="sr">DBR091: </span><span class="a">Tøtal</span><span class="t">Controlled Damage EP</span></h2>
+          <h2 class="title-stack" id="hero-h"><span class="sr">DBR091: </span><span class="a">Tøtal</span> <span class="t">Controlled Damage EP</span></h2>
           <p class="lede">Six tracks. One unsettled state of mind. An EP shaped around obsession, tension and the need to let go: from Consumed to Trace, what builds inside us, what breaks through, and what stays behind.</p>
           <dl class="spec">
             <div><dt>Format</dt><dd>Digital</dd></div>
@@ -94,7 +115,7 @@
           </dl>
           <div class="actions">
             <a class="btn primary" href="https://deathbellrecords.bandcamp.com/album/controlled-damage-ep-dbr091" target="_blank" rel="noopener">Buy on Bandcamp · $9</a>
-            <a class="btn" href="https://soundcloud.com/death-bell-979515783" target="_blank" rel="noopener">Listen on SoundCloud ↗</a>
+            <a class="btn" href="listen/controlled-damage-ep-dbr091.html">Listen everywhere →</a>
           </div>
         </div>
       </div>
@@ -121,6 +142,7 @@
         <div class="nw-side">
           <p class="lab">Release schedule</p>
           <ol class="sched" id="sched"></ol>
+          <noscript><ul class="nojs"><li><a href="listen/controlled-damage-ep-dbr091.html"><span class="lab">DBR091 · 2026</span><span><b>Tøtal</b> — Controlled Damage EP</span></a></li><li><a href="listen/hidden-process-ep.html"><span class="lab">DBR090 · 2026</span><span><b>Dave Alyan</b> — Hidden Process EP</span></a></li><li><a href="listen/enthropy-ep.html"><span class="lab">DBR089 · 2026</span><span><b>SUNBURN</b> — ENTHROPY EP</span></a></li><li><a href="listen/oath-ep.html"><span class="lab">DBR088 · 2026</span><span><b>MOHG</b> — Oath EP</span></a></li><li><a href="listen/eyes-closed.html"><span class="lab">DBR087 · 2026</span><span><b>Not By Me</b> — Eyes Closed</span></a></li></ul></noscript>
           <div class="actions">
             <a class="btn sm" href="releases.html">All releases →</a>
             <a class="btn sm" href="https://deathbellrecords.bandcamp.com/" target="_blank" rel="noopener">Follow on Bandcamp ↗</a>
@@ -129,6 +151,8 @@
       </div>
     </div>
   </section>
+
+
 
   <section class="sec" aria-label="Releases and events">
     <div class="wrap">
@@ -156,6 +180,7 @@
         <span class="lab">Yerevan</span>
       </div>
       <div class="cells res-cells" id="res-grid"></div>
+      <noscript><ul class="nojs"><li><b>Förm</b> <a href="https://ra.co/dj/form">RA</a> · <a href="https://soundcloud.com/form_music">SoundCloud</a> · <a href="https://www.instagram.com/_form_live/">Instagram</a></li><li><b>KamavoSian</b> <a href="https://ra.co/dj/kamavosian">RA</a> · <a href="https://soundcloud.com/ando-kamavosyan">SoundCloud</a> · <a href="https://instagram.com/kamavosian">Instagram</a></li><li><b>Tøtal</b> <a href="https://ra.co/dj/total">RA</a> · <a href="https://soundcloud.com/tootal">SoundCloud</a> · <a href="https://instagram.com/totalofficial/">Instagram</a> · <a href="https://totaldbr.bandcamp.com">Bandcamp</a></li><li><b>Arte Muradyan</b> <a href="https://soundcloud.com/arte-muradyan">SoundCloud</a> · <a href="https://instagram.com/artemuradyan/">Instagram</a> · <a href="https://www.beatport.com/artist/arte-muradyan/758297">Beatport</a></li><li><b>Belluian</b> <a href="https://soundcloud.com/belluian">SoundCloud</a></li></ul></noscript>
     </div>
   </section>
 
@@ -234,5 +259,5 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="cursor" id="cursor" aria-hidden="true"></div>
 
-<script src="assets/site.js?v=965c20b355"></script>
+<script src="assets/site.js?v=52ea0f5b79"></script>
 </html>

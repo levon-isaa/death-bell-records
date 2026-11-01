@@ -1,4 +1,4 @@
-<main data-page="releases">
+<main id="main" tabindex="-1" data-page="releases">
   <section class="page-head" id="top" aria-labelledby="page-h">
     <div class="wrap">
       <div class="hero-bar">
@@ -30,7 +30,7 @@
       <div class="sh">
         <h2 class="sh-t" id="all-h">All releases</h2>
         <span class="lab" id="all-sum">Every release</span>
-        <span class="lab">Opens on Bandcamp</span>
+        <span class="lab">Buy &amp; stream everywhere</span>
       </div>
       <div class="toolbar" role="search">
         <label class="search" for="q">
@@ -50,6 +50,7 @@
       </div>
       <div class="thead" aria-hidden="true"><span></span><span>Cat.</span><span>Artist</span><span>Title</span><span class="ty">Type</span><span class="k">Trk</span><span>Length</span><span class="y">Year</span></div>
       <ol class="table" id="rows"></ol>
+      <!--@NOJS_RELEASES@-->
       <div class="empty" id="empty" hidden><span class="lab">No releases match</span><button class="btn sm" id="clear" type="button">Clear filters</button></div>
       <div class="table-foot"><span class="lab" id="count" aria-live="polite"></span><a class="btn" href="https://deathbellrecords.bandcamp.com/music" target="_blank" rel="noopener">Bandcamp discography ↗</a></div>
     </div>

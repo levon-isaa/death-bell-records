@@ -113,57 +113,41 @@
   const ALIAS = { "Förm": "_förm" }; // same artist, spelled two ways on Bandcamp
   const LABEL_ONLY = ["various artists", "death bell records"];
 
-  // Upcoming releases for the News section on the home page. Pre-orders on Bandcamp show up there by themselves
-  // after tools/fetch_bandcamp.py; add a release announced anywhere else here. Leave date "" while it is TBA.
-  //   { cat: "DBR092", artist: "Artist", title: "Title EP", date: "2026-12-04", format: "Digital",
-  //     url: "https://…", cover: "covers/dbr092.jpg", note: "One line about the record." },
+  // Kept in data/*.json and checked by tools/build.py before it fills them in, so a typo stops the build, not the site.
+  // upcoming.json: releases announced for News (Bandcamp pre-orders show up there by themselves)
   const UPCOMING = [];
+  // residents.json: resident DJs in the label's order, with their photo in residents/ and their links
+  const RESIDENTS = [{"name": "Förm", "photo": "form.jpg", "links": [["RA", "https://ra.co/dj/form"], ["SoundCloud", "https://soundcloud.com/form_music"], ["Instagram", "https://www.instagram.com/_form_live/"]]}, {"name": "KamavoSian", "photo": "kamavosian.jpg", "links": [["RA", "https://ra.co/dj/kamavosian"], ["SoundCloud", "https://soundcloud.com/ando-kamavosyan"], ["Instagram", "https://instagram.com/kamavosian"]]}, {"name": "Tøtal", "photo": "total.jpg", "links": [["RA", "https://ra.co/dj/total"], ["SoundCloud", "https://soundcloud.com/tootal"], ["Instagram", "https://instagram.com/totalofficial/"], ["Bandcamp", "https://totaldbr.bandcamp.com"]]}, {"name": "Arte Muradyan", "photo": "arte-muradyan.jpg", "links": [["SoundCloud", "https://soundcloud.com/arte-muradyan"], ["Instagram", "https://instagram.com/artemuradyan/"], ["Beatport", "https://www.beatport.com/artist/arte-muradyan/758297"]]}, {"name": "Belluian", "photo": "belluian.jpg", "links": [["SoundCloud", "https://soundcloud.com/belluian"]]}];
+  // events.json: Death Bell nights from ra.co/promoters/90929, newest first; a future date shows under "Next night"
+  const EVENTS = [{"date": "2026-06-20", "title": "Death Bell Records 10th Anniversary", "lineup": "Förm b2b Arte Muradyan, Tøtal, KXAH (NYC), KamavoSian, Belluian b2b DPNN2", "venue": "The How", "ra": 2470236}, {"date": "2026-04-17", "title": "Death Bell Night with Lucia Lu", "lineup": "Tøtal, Förm, Lucia Lu, KamavoSian, Yhii", "venue": "The How", "ra": 2411514}, {"date": "2024-12-31", "title": "Death Bell Night x Subcore x How", "lineup": "hofmann (AM), Tøtal, Mixtinct, Xandra, KamavoSian", "venue": "The How", "ra": 2067828}, {"date": "2024-12-14", "title": "Death Bell Night", "lineup": "Tøtal, KamavoSian, Mixtinct, Belluian", "venue": "Fermata", "ra": 2054598}, {"date": "2024-09-27", "title": "Death Bell x Woozy Tunes", "lineup": "hayk karoyi, haramik, Maxwell (AM), KamavoSian, Tøtal", "venue": "Kitchen Lab", "ra": 2009918}, {"date": "2024-04-06", "title": "Death Bell Night", "lineup": "Lucinee, Tøtal, KamavoSian, T_st", "venue": "Hayfilm Studio", "ra": 1887942}, {"date": "2023-08-11", "title": "Death Bell Night", "lineup": "Tøtal, KamavoSian", "venue": "Fermata", "ra": 1754537}, {"date": "2023-04-01", "title": "Death Bell Night 7 Years", "lineup": "Tøtal, Förm, GFRND, ROKS, KamavoSian", "venue": "TBA", "ra": 1675104}, {"date": "2023-01-02", "title": "Death Bell Night x Korridorrr", "lineup": "Tøtal, KamavoSian", "venue": "Korridorrr", "ra": 1635613}, {"date": "2022-12-02", "title": "Death Bell Night", "lineup": "Tøtal, KamavoSian", "venue": "Fermata", "ra": 1621308}, {"date": "2022-06-03", "title": "ԵՌԱՆԿՅՈՒՆ festival", "lineup": "daao, Henna Onna, Ge-ology, KAÍ, Leö Anîram, Stereo Express, Supacooks, Tøtal, RIKHTER, KamavoSian", "venue": "Motor Yerevan", "ra": 1538430}, {"date": "2022-02-11", "title": "Death Bell Night x The Basement", "lineup": "Tøtal, Lucinee, KamavoSian", "venue": "Motor Yerevan", "ra": 1496355}, {"date": "2021-12-24", "title": "Death Bell x LEZVANI", "lineup": "Henna Onna, Narek Simonian, thanakí, Tøtal, GFRND, KamavoSian", "venue": "Fermata", "ra": 1490459}, {"date": "2021-10-22", "title": "Death Bell Night", "lineup": "JohannesK, Tøtal, Duncan Macdonald, KamavoSian", "venue": "Nine", "ra": 1468404}, {"date": "2021-09-11", "title": "Death Bell Night", "lineup": "sardaryans, Förm, KamavoSian, Tøtal, KAÍ, GFRND", "venue": "Fermata", "ra": 1462476}, {"date": "2021-08-13", "title": "Death Bell Night", "lineup": "Tøtal, KamavoSian, T_st", "venue": "Fermata", "ra": 1455656}, {"date": "2021-03-19", "title": "Death Bell Night", "lineup": "Tøtal, KamavoSian, Förm", "venue": "Korridorrr", "ra": 1438935}, {"date": "2019-08-23", "title": "Death Bell Night", "lineup": "Regal, Tøtal, KamavoSian, Förm", "venue": "Old Shoes Factory", "ra": 1289632}].map((e) => ({ ...e, url: `https://ra.co/events/${e.ra}` }));
+  // settings.json: the mailing list that Notify me and the download gates' email step send to
+  const SETTINGS = {"mailing_list": {"action": "", "email_field": "EMAIL", "hidden": {}}};
 
-  // Resident DJs, in the label's order. Photos are their RA / SoundCloud profile pictures.
-  const RESIDENTS = [
-    { name: "Förm", photo: "form.jpg",
-      links: [["RA", "https://ra.co/dj/form"], ["SoundCloud", "https://soundcloud.com/form_music"], ["Instagram", "https://www.instagram.com/_form_live/"]] },
-    { name: "KamavoSian", photo: "kamavosian.jpg",
-      links: [["RA", "https://ra.co/dj/kamavosian"], ["SoundCloud", "https://soundcloud.com/ando-kamavosyan"], ["Instagram", "https://instagram.com/kamavosian"]] },
-    { name: "Tøtal", photo: "total.jpg",
-      links: [["RA", "https://ra.co/dj/total"], ["SoundCloud", "https://soundcloud.com/tootal"], ["Instagram", "https://instagram.com/totalofficial/"], ["Bandcamp", "https://totaldbr.bandcamp.com"]] },
-    { name: "Arte Muradyan", photo: "arte-muradyan.jpg",
-      links: [["SoundCloud", "https://soundcloud.com/arte-muradyan"], ["Instagram", "https://instagram.com/artemuradyan/"], ["Beatport", "https://www.beatport.com/artist/arte-muradyan/758297"]] },
-    { name: "Belluian", photo: "belluian.jpg",
-      links: [["SoundCloud", "https://soundcloud.com/belluian"]] },
-  ];
+  // search ignores case, accents and spacing: "total" finds Tøtal, "form" finds Förm, "dbr 091" finds DBR091
+  const fold = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .replace(/ø/g, "o").replace(/æ/g, "ae").replace(/œ/g, "oe").replace(/ß/g, "ss").replace(/ł/g, "l").replace(/đ/g, "d");
+  const squash = (s) => s.replace(/\s+/g, "");
 
-  // Death Bell nights from ra.co/promoters/90929, newest first. [date, title, lineup, venue, RA event id]
-  // A night with a future date shows under "Next night" on the events page and on the home page.
-  const EVENTS = [
-    ["2026-06-20", "Death Bell Records 10th Anniversary", "Förm b2b Arte Muradyan, Tøtal, KXAH (NYC), KamavoSian, Belluian b2b DPNN2", "The How", 2470236],
-    ["2026-04-17", "Death Bell Night with Lucia Lu", "Tøtal, Förm, Lucia Lu, KamavoSian, Yhii", "The How", 2411514],
-    ["2024-12-31", "Death Bell Night x Subcore x How", "hofmann (AM), Tøtal, Mixtinct, Xandra, KamavoSian", "The How", 2067828],
-    ["2024-12-14", "Death Bell Night", "Tøtal, KamavoSian, Mixtinct, Belluian", "Fermata", 2054598],
-    ["2024-09-27", "Death Bell x Woozy Tunes", "hayk karoyi, haramik, Maxwell (AM), KamavoSian, Tøtal", "Kitchen Lab", 2009918],
-    ["2024-04-06", "Death Bell Night", "Lucinee, Tøtal, KamavoSian, T_st", "Hayfilm Studio", 1887942],
-    ["2023-08-11", "Death Bell Night", "Tøtal, KamavoSian", "Fermata", 1754537],
-    ["2023-04-01", "Death Bell Night 7 Years", "Tøtal, Förm, GFRND, ROKS, KamavoSian", "TBA", 1675104],
-    ["2023-01-02", "Death Bell Night x Korridorrr", "Tøtal, KamavoSian", "Korridorrr", 1635613],
-    ["2022-12-02", "Death Bell Night", "Tøtal, KamavoSian", "Fermata", 1621308],
-    ["2022-06-03", "ԵՌԱՆԿՅՈՒՆ festival", "daao, Henna Onna, Ge-ology, KAÍ, Leö Anîram, Stereo Express, Supacooks, Tøtal, RIKHTER, KamavoSian", "Motor Yerevan", 1538430],
-    ["2022-02-11", "Death Bell Night x The Basement", "Tøtal, Lucinee, KamavoSian", "Motor Yerevan", 1496355],
-    ["2021-12-24", "Death Bell x LEZVANI", "Henna Onna, Narek Simonian, thanakí, Tøtal, GFRND, KamavoSian", "Fermata", 1490459],
-    ["2021-10-22", "Death Bell Night", "JohannesK, Tøtal, Duncan Macdonald, KamavoSian", "Nine", 1468404],
-    ["2021-09-11", "Death Bell Night", "sardaryans, Förm, KamavoSian, Tøtal, KAÍ, GFRND", "Fermata", 1462476],
-    ["2021-08-13", "Death Bell Night", "Tøtal, KamavoSian, T_st", "Fermata", 1455656],
-    ["2021-03-19", "Death Bell Night", "Tøtal, KamavoSian, Förm", "Korridorrr", 1438935],
-    ["2019-08-23", "Death Bell Night", "Regal, Tøtal, KamavoSian, Förm", "Old Shoes Factory", 1289632],
-  ].map(([date, title, lineup, venue, id]) => ({ date, title, lineup, venue, url: `https://ra.co/events/${id}` }));
-
-  const R = DATA.map(([cat, artist, title, type, date, tracks, length, path, art, vinyl]) => ({
-    cat, artist, title, type, date, tracks, length, url: BC + path, art, vinyl,
-    year: +date.slice(0, 4),
-    names: LABEL_ONLY.includes(artist.toLowerCase()) ? [] : artist.split(", ").map((a) => ALIAS[a.trim()] || a.trim()),
-  }));
+  const R = DATA.map(([cat, artist, title, type, date, tracks, length, path, art, vinyl]) => {
+    const names = LABEL_ONLY.includes(artist.toLowerCase()) ? [] : artist.split(", ").map((a) => ALIAS[a.trim()] || a.trim());
+    const key = fold(`${cat} ${artist} ${names.join(" ")} ${title}`);
+    return { cat, artist, title, type, date, tracks, length, url: BC + path, art, vinyl, year: +date.slice(0, 4), key, keyTight: squash(key),
+      page: `listen/${path.split("/").pop()}.html` }; // its smart link page: Bandcamp and every streaming platform
+  });
 
   const $ = (s) => document.querySelector(s);
+  // each part of the page renders on its own: a bad entry breaks that part, never the loader or the rest
+  const part = (name, render) => { try { render(); } catch (e) { console.error(`Death Bell site: ${name} failed to render`, e); } };
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const newTab = (url) => (/^https?:/.test(url) ? ' target="_blank" rel="noopener"' : ""); // other sites open in a new tab
+  // a form that sends an email address to the label's mailing list, or nothing while none is set up
+  const signup = (button, uid) => {
+    const m = SETTINGS.mailing_list || {};
+    if (!m.action) return "";
+    const hidden = Object.entries(m.hidden || {}).map(([k, v]) => `<input type="hidden" name="${esc(k)}" value="${esc(v)}">`).join("");
+    return `<form class="signup" action="${esc(m.action)}" method="post" target="signup-frame"><label class="sr" for="${uid}">Email address</label>` +
+      `<input id="${uid}" type="email" name="${esc(m.email_field)}" required autocomplete="email" placeholder="Your email">${hidden}<button class="btn sm" type="submit">${button}</button></form>`;
+  };
   const mmss = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
   const dmy = (d) => d.split("-").reverse().join(".");
   const pad = (n) => String(n).padStart(2, "0");
@@ -182,31 +166,40 @@
   const nightsNext = EVENTS.filter((e) => e.date >= today).reverse(); // soonest first
 
   // ---------- micro-interaction helpers ----------
-  // images fade in as they arrive
+  // images fade in as they arrive; one the browser has already started drawing is left alone, or it would blink out
   function fadeIn(root) {
     root.querySelectorAll("img").forEach((img) => {
-      if (img.complete || img.classList.contains("fade")) return;
+      if (img.complete || img.naturalWidth || img.classList.contains("fade")) return;
       img.classList.add("fade");
       const show = () => img.classList.add("in");
       img.addEventListener("load", show, { once: true });
       img.addEventListener("error", show, { once: true });
     });
   }
-  // text decodes from random glyphs into the real label
+  // text decodes from random glyphs into the real label. The glyphs play in a copy hidden from screen readers,
+  // which keep reading the real text next to it.
   const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=/<>";
   function scramble(el, dur = 420) {
     if (reduce || !el) return;
-    const final = el._final ?? el.textContent;
-    el._final = final;
+    if (!el._shown) {
+      const text = el.textContent, real = document.createElement("span"), shown = document.createElement("span");
+      real.className = "sr";
+      real.textContent = shown.textContent = text;
+      shown.setAttribute("aria-hidden", "true");
+      el.replaceChildren(real, shown);
+      el._shown = shown;
+      el._text = text;
+    }
+    const shown = el._shown, final = el._text;
     cancelAnimationFrame(el._raf);
     const t0 = performance.now();
     const step = (now) => {
       const p = Math.min(1, (now - t0) / dur), n = Math.floor(p * final.length);
       let out = "";
       for (let i = 0; i < final.length; i++) out += i < n || final[i] === " " ? final[i] : GLYPHS[(Math.random() * GLYPHS.length) | 0];
-      el.textContent = out;
+      shown.textContent = out;
       if (p < 1) el._raf = requestAnimationFrame(step);
-      else { el.textContent = final; el._final = undefined; }
+      else shown.textContent = final;
     };
     el._raf = requestAnimationFrame(step);
   }
@@ -227,6 +220,12 @@
     requestAnimationFrame(step);
   }
   const specRows = (rows) => rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
+  // The typefaces the page uses, actually downloaded. document.fonts.ready alone resolves before they have
+  // started loading, so on a slow first visit the hero showed in a fallback font and flickered into Geist.
+  const FACES = ["300 1em Geist", "400 1em Geist", "700 1em Geist", "800 1em Geist", '400 1em "Geist Mono"', '500 1em "Geist Mono"'];
+  const fontsLoaded = document.fonts
+    ? Promise.all(FACES.map((face) => document.fonts.load(face, "DBR091 Tøtal"))).catch(() => {})
+    : Promise.resolve();
 
   // ---------- menu (small screens) ----------
   const bar = $("#bar"), menuBtn = $("#menu-btn");
@@ -234,8 +233,10 @@
     const open = bar.classList.toggle("open");
     menuBtn.setAttribute("aria-expanded", open);
   });
-  $("#links").addEventListener("click", (e) => {
-    if (e.target.closest("a")) { bar.classList.remove("open"); menuBtn.setAttribute("aria-expanded", false); }
+  const closeMenu = () => { bar.classList.remove("open"); menuBtn.setAttribute("aria-expanded", false); };
+  $("#links").addEventListener("click", (e) => { if (e.target.closest("a")) closeMenu(); });
+  addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && bar.classList.contains("open")) { closeMenu(); menuBtn.focus(); }
   });
 
   // ---------- Yerevan local time ----------
@@ -249,11 +250,23 @@
   }
 
   // ---------- ticker: latest releases, duplicated for a seamless loop ----------
-  const tickerItems = R.slice(0, 12).map((r) =>
-    `<a href="${r.url}" target="_blank" rel="noopener"><b>${r.cat || r.type}</b>${r.date > today ? "Pre-order · " : ""}${esc(r.artist)} — ${esc(r.title)}</a>`).join("");
-  $("#ticker").innerHTML = `<span class="sr">Latest releases: </span>${tickerItems}<span aria-hidden="true" style="display:contents">${tickerItems.replace(/<a /g, '<a tabindex="-1" ')}</span>`;
+  part("ticker", () => {
+    const tickerItems = R.slice(0, 12).map((r) =>
+      `<a href="${r.page}"><b>${r.cat || r.type}</b>${r.date > today ? "Pre-order · " : ""}${esc(r.artist)} — ${esc(r.title)}</a>`).join("");
+    $("#ticker").innerHTML = `<span class="sr">Latest releases: </span>${tickerItems}<span aria-hidden="true" style="display:contents">${tickerItems.replace(/<a /g, '<a tabindex="-1" ')}</span>`;
+  });
 
-  // the site's one colour: sampled from the newest cover
+  // the site's one colour: sampled from the newest cover, then lightened as far as needed to stay readable on
+  // black (4.5:1), so a mostly blue or violet cover can't make the accent text and focus outlines too dark
+  const hslToRgb = (h, s, l) => {
+    s /= 100; l /= 100;
+    const k = (n) => (n + h / 30) % 12, a = s * Math.min(l, 1 - l);
+    return [0, 8, 4].map((n) => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1)));
+  };
+  const onBlack = (h, s, l) => {
+    const [r, g, b] = hslToRgb(h, s, l).map((v) => (v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4));
+    return (.2126 * r + .7152 * g + .0722 * b + .05) / (.0018 + .05); // against the --bg #060606
+  };
   function rgbToHs(r, g, b) {
     r /= 255; g /= 255; b /= 255;
     const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, dd = mx - mn;
@@ -279,16 +292,19 @@
         }
         if (!w) return;
         const [h, s] = rgbToHs(r / w, g / w, b / w), sat = Math.min(85, Math.max(50, s));
+        let light = 58;
+        while (light < 80 && onBlack(h, sat, light) < 4.5) light += 2;
         const root = document.documentElement.style;
-        root.setProperty("--accent", `hsl(${h} ${sat}% 58%)`);
+        root.setProperty("--accent", `hsl(${h} ${sat}% ${light}%)`);
         root.setProperty("--accent-a", `hsl(${h} ${sat}% 50% / .22)`);
       } catch (e) { /* keep the neutral default */ }
     };
     img.src = src;
-  })(`covers/${released[0].art}-t.jpg`);
+  })(`covers/${(released[0] || R[0]).art}-t.jpg`);
 
   // ---------- home: news, the next release and the release schedule ----------
-  if ($("#nw-feat")) {
+  part("news", () => {
+    if (!$("#nw-feat")) return;
     const preorders = R.filter((r) => r.date > today).map((r) => ({
       cat: r.cat, artist: r.artist, title: r.title, date: r.date, format: r.vinyl ? "Vinyl · Digital" : "Digital",
       url: r.url, cover: `covers/${r.art}-l.jpg`, preorder: true }));
@@ -298,6 +314,8 @@
     const lastCat = Math.max(0, ...R.map((r) => +(/^DBR(\d+)$/.exec(r.cat) || [])[1] || 0));
     const u = upcoming[0];
     const placeholder = `<span class="nw-art nw-ph" aria-hidden="true"><svg class="emblem"><use href="#logo"/></svg><span class="lab">Artwork soon</span></span>`;
+    const form = signup("Notify me", "notify-email");
+    const notify = form ? `<div class="notify"><p class="lab">Get an email the day it drops</p>${form}<p class="lab signup-done" hidden>You're on the list. We'll email you when it's out.</p></div>` : "";
     $("#nw-feat").innerHTML = u ? `
       ${u.url ? `<a class="nw-art" href="${esc(u.url)}" target="_blank" rel="noopener" tabindex="-1">` : '<span class="nw-art">'}${u.cover
         ? `<img src="${esc(u.cover)}" width="600" height="600" data-preload alt="Cover of ${esc(u.title)} by ${esc(u.artist)}">`
@@ -305,11 +323,12 @@
       <div class="nw-body">
         <p class="lab"><span class="dot live"></span>${u.preorder ? "Pre-order now" : "Upcoming release"}</p>
         <p class="nw-cat" aria-hidden="true">${esc(u.cat || "New")}</p>
-        <h3 class="title-stack"><span class="sr">${esc(u.cat || "")} </span><span class="a">${esc(u.artist)}</span><span class="t">${esc(u.title)}</span></h3>
+        <h3 class="title-stack"><span class="sr">${esc(u.cat || "")} </span><span class="a">${esc(u.artist)}</span> <span class="t">${esc(u.title)}</span></h3>
         ${u.note ? `<p class="lede">${esc(u.note)}</p>` : ""}
         <dl class="spec">${specRows([["Release", u.date ? dmy(u.date) : "TBA"], ["Format", esc(u.format || "Digital")], ["Label", "Death Bell"]])}</dl>
         ${u.date ? `<div class="count" id="countdown" data-to="${u.date}" role="timer" aria-label="Out in ${days(u.date)} days"></div>` : ""}
         <div class="actions">${u.url ? `<a class="btn primary" href="${esc(u.url)}" target="_blank" rel="noopener">${u.preorder ? "Pre-order on Bandcamp ↗" : "Listen ↗"}</a>` : ""}<a class="btn" href="${IG}" target="_blank" rel="noopener">Instagram ↗</a></div>
+        ${notify}
       </div>` : `
       ${placeholder}
       <div class="nw-body">
@@ -317,7 +336,8 @@
         <p class="nw-cat">DBR${String(lastCat + 1).padStart(3, "0")}</p>
         <h3 class="nw-tba">To be announced</h3>
         <p class="lede">The next Death Bell record is in the works. Follow the label on Bandcamp to get it the day it drops, and watch Instagram and SoundCloud for the first previews.</p>
-        <div class="actions"><a class="btn primary" href="${BC}" target="_blank" rel="noopener">Follow on Bandcamp ↗</a><a class="btn" href="${IG}" target="_blank" rel="noopener">Instagram ↗</a></div>
+        ${notify}
+        <div class="actions"><a class="btn${notify ? "" : " primary"}" href="${BC}" target="_blank" rel="noopener">Follow on Bandcamp ↗</a><a class="btn" href="${IG}" target="_blank" rel="noopener">Instagram ↗</a></div>
       </div>`;
 
     // live countdown to midnight in Yerevan on release day
@@ -335,7 +355,7 @@
 
     // newest at the top: what is coming, a line for today, then what just came out
     const row = (d, status, cat, artist, title, url, up) => `
-      <li><a class="srow${up ? " up" : ""}" href="${esc(url)}" target="_blank" rel="noopener">
+      <li><a class="srow${up ? " up" : ""}" href="${esc(url)}"${newTab(url)}>
         <span class="d">${d}</span><span class="s">${status}</span><span class="c">${esc(cat || "—")}</span>
         <span class="w"><b>${esc(artist)}</b><span>${esc(title)}</span></span><span class="go" aria-hidden="true">↗</span>
       </a></li>`;
@@ -344,29 +364,31 @@
         ? upcoming.slice().reverse().map((x) => row(x.date ? dmy(x.date) : "TBA", x.date ? `In ${days(x.date)} d` : "Soon", x.cat, x.artist, x.title, x.url || BC, true)).join("")
         : `<li class="sempty"><span class="lab">No release dates announced yet</span></li>`) +
       `<li class="now"><span class="lab"><span class="dot live"></span>Today · ${dmy(today)}</span></li>` +
-      released.slice(0, 5).map((r) => row(dmy(r.date), ago(r.date), r.cat, r.artist, r.title, r.url)).join("");
+      released.slice(0, 5).map((r) => row(dmy(r.date), ago(r.date), r.cat, r.artist, r.title, r.page)).join("");
 
     // ways into the releases and events pages
     $("#dx-rel").innerHTML = `<b data-count="${R.length}">${R.length}</b> releases · since ${FOUNDED}`;
-    $("#dx-covers").innerHTML = released.slice(0, 5).map((r) => `<img src="covers/${r.art}-l.jpg" width="600" height="600" loading="lazy" alt="">`).join("");
+    $("#dx-covers").innerHTML = released.slice(0, 5).map((r) => `<img src="covers/${r.art}-m.jpg" width="300" height="300" loading="lazy" alt="">`).join("");
     $("#dx-ev").innerHTML = `<b data-count="${nightsPast.length}">${pad(nightsPast.length)}</b> nights · next: ${nightsNext.length ? dmy(nightsNext[0].date) : "TBA"}`;
     $("#dx-nights").innerHTML = [...nightsNext.slice(0, 1), ...nightsPast.slice(0, 3)].map((e) =>
       `<span class="dx-row"><span>${dmy(e.date)}</span><span>${esc(e.title)}</span><span>${esc(e.venue)}</span></span>`).join("");
-  }
+  });
 
   // ---------- home: residents ----------
-  if ($("#res-grid")) {
+  part("residents", () => {
+    if (!$("#res-grid")) return;
     $("#res-grid").innerHTML = RESIDENTS.map((p) => `
       <article class="rs">
         <div class="ph"><img src="residents/${p.photo}" loading="lazy" alt="${esc(p.name)}"></div>
         <h3>${esc(p.name)}</h3>
         <div class="rs-links">${p.links.map(([l, u]) => `<a href="${u}" target="_blank" rel="noopener">${l} ↗</a>`).join("")}</div>
       </article>`).join("");
-  }
+  });
 
   // ---------- releases page ----------
-  const qEl = $("#q");
-  if (qEl) {
+  part("releases", () => {
+    const qEl = $("#q");
+    if (!qEl) return;
     const kinds = R.reduce((m, r) => ((m[r.type] = (m[r.type] || 0) + 1), m), {});
     const tracks = R.reduce((s, r) => s + r.tracks, 0);
     $("#rel-stats").innerHTML = specRows([
@@ -381,7 +403,7 @@
     // the newest eight as covers
     $("#latest-sum").innerHTML = `<b data-count="8">08</b> of ${R.length}`;
     $("#covers").innerHTML = R.slice(0, 8).map((r) => `
-      <a class="rc" href="${r.url}" target="_blank" rel="noopener">
+      <a class="rc" href="${r.page}">
         <span class="iw"><img src="covers/${r.art}-l.jpg" width="600" height="600" data-preload alt="Cover of ${esc(r.title)} by ${esc(r.artist)}"></span>
         <span class="m"><span class="lab">${r.cat || r.type}</span><span class="lab">${r.date > today ? "Pre-order" : dmy(r.date)}</span></span>
         <span class="a">${esc(r.artist)}</span>
@@ -399,12 +421,12 @@
     $("#all-sum").innerHTML = `<b data-count="${R.length}">${R.length}</b> releases`;
 
     const renderRows = (animate) => {
-      const q = qEl.value.trim().toLowerCase(), y = +yearEl.value;
+      const q = fold(qEl.value.trim()), qTight = squash(q), y = +yearEl.value;
       const list = R.filter((r) =>
-        (!q || `${r.cat} ${r.artist} ${r.names.join(" ")} ${r.title}`.toLowerCase().includes(q)) &&
+        (!q || r.key.includes(q) || r.keyTight.includes(qTight)) &&
         (!type || r.type === type) && (!y || r.year === y));
       $("#rows").innerHTML = list.map((r) => `
-        <li><a class="trow" href="${r.url}" target="_blank" rel="noopener">
+        <li><a class="trow" href="${r.page}">
           <img src="covers/${r.art}-t.jpg" width="40" height="40" loading="lazy" decoding="async" alt="">
           <span class="c">${r.cat || "—"}</span>
           <span class="a">${esc(r.artist)}</span>
@@ -442,10 +464,11 @@
       qEl.focus({ preventScroll: true });
       qEl.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
     });
-  }
+  });
 
   // ---------- events page ----------
-  if ($("#ev-list")) {
+  part("events", () => {
+    if (!$("#ev-list")) return;
     const venues = nightsPast.reduce((m, e) => (e.venue !== "TBA" && (m[e.venue] = (m[e.venue] || 0) + 1), m), {});
     const [home, homeN] = Object.entries(venues).sort((a, b) => b[1] - a[1])[0];
     $("#ev-stats").innerHTML = specRows([
@@ -479,7 +502,7 @@
         <span class="go" aria-hidden="true">↗</span>
       </a></li>`;
     }).join("");
-  }
+  });
 
   // ---------- page loader: real progress on fonts and the page's first screen of artwork ----------
   const loader = $("#loader");
@@ -505,7 +528,7 @@
       img.src = src;
     });
     const typeLine = line("> Type · Geist / Geist Mono", "…");
-    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { fontsDone = 1; typeLine.textContent = "OK"; });
+    fontsLoaded.then(() => { fontsDone = 1; typeLine.textContent = "OK"; });
 
     let seen = null;
     try { seen = localStorage.getItem("dbr:seen"); } catch (e) { /* storage blocked: treat as a first visit */ }
@@ -557,7 +580,7 @@
     wm.style.setProperty("--wm", `${Math.min(100 * wm.clientWidth / rg.getBoundingClientRect().width * .99, 400).toFixed(1)}px`);
   }
   fitWordmark();
-  if (document.fonts) document.fonts.ready.then(fitWordmark);
+  fontsLoaded.then(fitWordmark);
   let wmRaf = 0;
   addEventListener("resize", () => { cancelAnimationFrame(wmRaf); wmRaf = requestAnimationFrame(fitWordmark); });
 
@@ -622,11 +645,73 @@
     try { navigator.clipboard.writeText(b.dataset.copy).then(done, fallback); } catch (e) { fallback(); }
   }));
 
+  // share a release's smart link page: the phone's share sheet where there is one, otherwise copy the address
+  document.querySelectorAll("[data-share]").forEach((b) => b.addEventListener("click", () => {
+    const url = location.href.split("#")[0];
+    if (navigator.share) { navigator.share({ title: document.title, url }).catch(() => {}); return; }
+    try { navigator.clipboard.writeText(url).then(() => say("Link copied"), () => say(url)); } catch (e) { say(url); }
+  }));
+
+  // ---------- mailing-list sign-ups: Notify me on News and the download gates' email step ----------
+  // posted into a hidden frame so the visitor stays on the page; the list itself is set in data/settings.json
+  part("sign-ups", () => {
+    const forms = [...document.querySelectorAll("form.signup")];
+    if (!forms.length) return;
+    document.body.insertAdjacentHTML("beforeend", '<iframe name="signup-frame" title="Mailing list sign-up" hidden></iframe>');
+    forms.forEach((form) => form.addEventListener("submit", () => {
+      setTimeout(() => { // after the browser has sent it
+        form.hidden = true;
+        const done = form.parentElement.querySelector(".signup-done");
+        if (done) done.hidden = false;
+        say("You're on the list");
+        form.dispatchEvent(new CustomEvent("signed-up", { bubbles: true }));
+      }, 0);
+    }));
+  });
+
+  // ---------- free download gates (free/<gate>.html) ----------
+  // each step counts once the visitor has opened the follow link or joined the list; nothing here can check a
+  // follow, so this is a thank-you, not a lock. Progress is kept in this browser for when they come back.
+  part("gate", () => {
+    const gate = $(".gate");
+    if (!gate) return;
+    const steps = [...gate.querySelectorAll(".step")], dl = gate.querySelector(".gate-dl"), status = gate.querySelector(".gate-status");
+    const key = `dbr:gate:${gate.dataset.gate}`;
+    let done = new Set();
+    try { done = new Set(JSON.parse(localStorage.getItem(key) || "[]")); } catch (e) { /* storage blocked: start fresh */ }
+    const update = () => {
+      try { localStorage.setItem(key, JSON.stringify([...done])); } catch (e) { /* storage blocked: progress lasts this visit */ }
+      let count = 0;
+      steps.forEach((s) => {
+        const ok = done.has(s.dataset.step), a = s.querySelector("a.btn");
+        s.classList.toggle("done", ok);
+        if (a) a.textContent = ok ? "Done ✓" : "Follow ↗";
+        count += ok;
+      });
+      const open = count === steps.length;
+      if (open) {
+        dl.href = dl.dataset.href;
+        dl.removeAttribute("aria-disabled");
+        if (dl.hasAttribute("data-local")) dl.setAttribute("download", "");
+      }
+      status.textContent = open ? "Unlocked. Thank you for the support." : `${pad(count)} / ${pad(steps.length)} done`;
+    };
+    steps.forEach((s) => s.querySelector("a.btn")?.addEventListener("click", () => { done.add(s.dataset.step); setTimeout(update, 300); }));
+    gate.addEventListener("signed-up", (e) => { done.add(e.target.closest(".step").dataset.step); update(); });
+    dl.addEventListener("click", (e) => {
+      if (!dl.hasAttribute("aria-disabled")) return;
+      e.preventDefault();
+      const next = steps.find((s) => !done.has(s.dataset.step));
+      next?.querySelector("a, input")?.focus();
+      say("Finish the steps above to unlock the download");
+    });
+    update();
+  });
+
   if (fine) {
     // labels scramble on hover
     document.querySelectorAll(".links a, .btn:not([data-copy]), .sh a.lab, .hero-bar a.lab, .foot-bottom a").forEach((el) => {
       if (el.children.length) return;
-      el.setAttribute("aria-label", el.textContent.trim());
       el.addEventListener("mouseenter", () => scramble(el, 380));
     });
     document.querySelectorAll(".follow a").forEach((a) => a.addEventListener("mouseenter", () => scramble(a.querySelector(".n"), 380)));

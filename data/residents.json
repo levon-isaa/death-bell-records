@@ -1,0 +1,7 @@
+[
+  {"name": "Förm", "photo": "form.jpg", "links": [["RA", "https://ra.co/dj/form"], ["SoundCloud", "https://soundcloud.com/form_music"], ["Instagram", "https://www.instagram.com/_form_live/"]]},
+  {"name": "KamavoSian", "photo": "kamavosian.jpg", "links": [["RA", "https://ra.co/dj/kamavosian"], ["SoundCloud", "https://soundcloud.com/ando-kamavosyan"], ["Instagram", "https://instagram.com/kamavosian"]]},
+  {"name": "Tøtal", "photo": "total.jpg", "links": [["RA", "https://ra.co/dj/total"], ["SoundCloud", "https://soundcloud.com/tootal"], ["Instagram", "https://instagram.com/totalofficial/"], ["Bandcamp", "https://totaldbr.bandcamp.com"]]},
+  {"name": "Arte Muradyan", "photo": "arte-muradyan.jpg", "links": [["SoundCloud", "https://soundcloud.com/arte-muradyan"], ["Instagram", "https://instagram.com/artemuradyan/"], ["Beatport", "https://www.beatport.com/artist/arte-muradyan/758297"]]},
+  {"name": "Belluian", "photo": "belluian.jpg", "links": [["SoundCloud", "https://soundcloud.com/belluian"]]}
+]

@@ -2,8 +2,9 @@
 
     python3 tools/fetch_bandcamp.py && python3 tools/build.py
 
-Downloads a 100px thumbnail (covers/<id>-t.jpg) for every release and a 700px cover
-(covers/<id>-l.jpg) for the newest nine, which the hero and release grid show.
+Downloads a 100px thumbnail (covers/<id>-t.jpg) and a 300px cover (covers/<id>-m.jpg, the release's smart link
+page and the strip on the home page) for every release, and a 700px cover (covers/<id>-l.jpg) for the newest nine,
+which the hero and release grid show.
 Pre-orders come through with their future release date and appear in the News section.
 """
 import html
@@ -78,7 +79,7 @@ def main():
     rows.sort(key=lambda r: r["date"], reverse=True)
     (ROOT / "covers").mkdir(exist_ok=True)
     for i, r in enumerate(rows):
-        for code, tag, wanted in (("3", "t", True), ("5", "l", i < LARGE)):
+        for code, tag, wanted in (("3", "t", True), ("4", "m", True), ("5", "l", i < LARGE)):
             out = ROOT / "covers" / f"{r['art']}-{tag}.jpg"
             if wanted and not out.exists():
                 out.write_bytes(get(f"https://f4.bcbits.com/img/a{r['art']:010d}_{code}.jpg", binary=True))

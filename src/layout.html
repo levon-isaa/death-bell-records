@@ -10,9 +10,19 @@
 // The loader plays when someone arrives at the site or reloads a page, not when they click between its own pages.
 (function () {
   var nav = performance.getEntriesByType ? performance.getEntriesByType("navigation")[0] : null, type = nav ? nav.type : "navigate";
-  var base = location.href.replace(/[^/]*([?#].*)?$/, "");
-  if (type === "back_forward" || (type === "navigate" && document.referrer.indexOf(base) === 0)) return;
+  var base = document.baseURI.replace(/[^/]*([?#].*)?$/, ""); // the site's root, also from pages in listen/ and free/
+  if (type === "back_forward" || (type === "navigate" && document.referrer.indexOf(base) === 0)) {
+    // no loader: start the rise-in from the first paint. Left to site.js, the hero showed, blinked out when the
+    // script arrived and faded back in.
+    document.documentElement.classList.add("intro");
+    return;
+  }
   document.documentElement.classList.add("is-loading");
+  // site.js normally lifts the loader. If it fails to load or crashes, or is still missing after 9 seconds,
+  // lift it here so nobody is left looking at the loader
+  var release = function () { document.documentElement.classList.remove("is-loading"); };
+  addEventListener("error", function (e) { if (e.target === window || (e.target && e.target.tagName === "SCRIPT")) release(); }, true);
+  setTimeout(release, 9000);
 })();
 // the browser skips the cross-fade between pages in a hidden tab; that is fine, so don't report it as an error
 ["pageswap", "pagereveal"].forEach(function (type) {
@@ -39,7 +49,9 @@
   </div>
 </div>
 
-<div class="ticker" aria-label="Latest releases"><div class="tk-track" id="ticker"></div></div>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="ticker"><div class="tk-track" id="ticker"></div></div>
 
 <header class="bar" id="bar">
   <div class="wrap">

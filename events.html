@@ -7,19 +7,38 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>Events · Death Bell Records</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Death Bell Nights: the label's techno parties in Yerevan with its residents and guests, and the full archive from Resident Advisor.">
+<meta name="description" content="Death Bell Nights: the label&#x27;s techno parties in Yerevan with its residents and guests, and the full archive from Resident Advisor.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=0024558547">
+<link rel="stylesheet" href="assets/site.css?v=e6aaf83f6f">
 <link rel="preload" as="image" href="events/10th-anniversary.jpg" fetchpriority="high">
+<link rel="canonical" href="https://levon-isaa.github.io/death-bell-records/events.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Death Bell Records">
+<meta property="og:title" content="Events · Death Bell Records">
+<meta property="og:description" content="Death Bell Nights: the label&#x27;s techno parties in Yerevan with its residents and guests, and the full archive from Resident Advisor.">
+<meta property="og:url" content="https://levon-isaa.github.io/death-bell-records/events.html">
+<meta property="og:image" content="https://levon-isaa.github.io/death-bell-records/events/10th-anniversary.jpg">
+<meta property="og:image:alt" content="Flyer for the Death Bell Records 10th anniversary at The How, 20 June 2026">
+<meta name="twitter:card" content="summary">
 <script>
 // The loader plays when someone arrives at the site or reloads a page, not when they click between its own pages.
 (function () {
   var nav = performance.getEntriesByType ? performance.getEntriesByType("navigation")[0] : null, type = nav ? nav.type : "navigate";
-  var base = location.href.replace(/[^/]*([?#].*)?$/, "");
-  if (type === "back_forward" || (type === "navigate" && document.referrer.indexOf(base) === 0)) return;
+  var base = document.baseURI.replace(/[^/]*([?#].*)?$/, ""); // the site's root, also from pages in listen/ and free/
+  if (type === "back_forward" || (type === "navigate" && document.referrer.indexOf(base) === 0)) {
+    // no loader: start the rise-in from the first paint. Left to site.js, the hero showed, blinked out when the
+    // script arrived and faded back in.
+    document.documentElement.classList.add("intro");
+    return;
+  }
   document.documentElement.classList.add("is-loading");
+  // site.js normally lifts the loader. If it fails to load or crashes, or is still missing after 9 seconds,
+  // lift it here so nobody is left looking at the loader
+  var release = function () { document.documentElement.classList.remove("is-loading"); };
+  addEventListener("error", function (e) { if (e.target === window || (e.target && e.target.tagName === "SCRIPT")) release(); }, true);
+  setTimeout(release, 9000);
 })();
 // the browser skips the cross-fade between pages in a hidden tab; that is fine, so don't report it as an error
 ["pageswap", "pagereveal"].forEach(function (type) {
@@ -46,7 +65,9 @@
   </div>
 </div>
 
-<div class="ticker" aria-label="Latest releases"><div class="tk-track" id="ticker"></div></div>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="ticker"><div class="tk-track" id="ticker"></div></div>
 
 <header class="bar" id="bar">
   <div class="wrap">
@@ -66,7 +87,7 @@
   <span class="progress" id="progress" aria-hidden="true"></span>
 </header>
 
-<main data-page="events">
+<main id="main" tabindex="-1" data-page="events">
   <section class="page-head" id="top" aria-labelledby="page-h">
     <div class="wrap">
       <div class="hero-bar">
@@ -89,16 +110,16 @@
         <a class="lab" href="https://ra.co/promoters/90929" target="_blank" rel="noopener">Follow on RA ↗</a>
       </div>
       <div class="cells ev-top">
-        <article class="ev-next">
+        <div class="ev-next">
           <p class="lab"><span class="dot live"></span>Next night</p>
           <p class="ev-tba" id="ev-tba">To be announced</p>
           <ol class="ev-upcoming" id="ev-upcoming" hidden></ol>
-          <p>More than 30 label nights in Yerevan, with the residents and guests from around the world. Follow the label to hear about the next one first.</p>
+          <p>Death Bell Nights bring the residents and guests from around the world to Yerevan's clubs. Follow the label to hear about the next one first.</p>
           <div class="actions">
             <a class="btn sm" href="https://ra.co/promoters/90929" target="_blank" rel="noopener">Resident Advisor ↗</a>
             <a class="btn sm" href="https://instagram.com/deathbellrecords/" target="_blank" rel="noopener">Instagram ↗</a>
           </div>
-        </article>
+        </div>
         <article class="ev-feature">
           <img src="events/10th-anniversary.jpg" width="417" height="736" data-preload alt="Flyer for the Death Bell Records 10th anniversary at The How, 20 June 2026">
           <div class="body">
@@ -128,6 +149,7 @@
       </div>
       <div class="ehead" aria-hidden="true"><span>Date</span><span>Night</span><span>Lineup</span><span>Venue</span><span></span></div>
       <ol class="ev-list" id="ev-list"></ol>
+      <noscript><ul class="nojs"><li><a href="https://ra.co/events/2470236"><span class="lab">2026-06-20 · The How</span><span><b>Death Bell Records 10th Anniversary</b> — Förm b2b Arte Muradyan, Tøtal, KXAH (NYC), KamavoSian, Belluian b2b DPNN2</span></a></li><li><a href="https://ra.co/events/2411514"><span class="lab">2026-04-17 · The How</span><span><b>Death Bell Night with Lucia Lu</b> — Tøtal, Förm, Lucia Lu, KamavoSian, Yhii</span></a></li><li><a href="https://ra.co/events/2067828"><span class="lab">2024-12-31 · The How</span><span><b>Death Bell Night x Subcore x How</b> — hofmann (AM), Tøtal, Mixtinct, Xandra, KamavoSian</span></a></li><li><a href="https://ra.co/events/2054598"><span class="lab">2024-12-14 · Fermata</span><span><b>Death Bell Night</b> — Tøtal, KamavoSian, Mixtinct, Belluian</span></a></li><li><a href="https://ra.co/events/2009918"><span class="lab">2024-09-27 · Kitchen Lab</span><span><b>Death Bell x Woozy Tunes</b> — hayk karoyi, haramik, Maxwell (AM), KamavoSian, Tøtal</span></a></li><li><a href="https://ra.co/events/1887942"><span class="lab">2024-04-06 · Hayfilm Studio</span><span><b>Death Bell Night</b> — Lucinee, Tøtal, KamavoSian, T_st</span></a></li><li><a href="https://ra.co/events/1754537"><span class="lab">2023-08-11 · Fermata</span><span><b>Death Bell Night</b> — Tøtal, KamavoSian</span></a></li><li><a href="https://ra.co/events/1675104"><span class="lab">2023-04-01 · TBA</span><span><b>Death Bell Night 7 Years</b> — Tøtal, Förm, GFRND, ROKS, KamavoSian</span></a></li><li><a href="https://ra.co/events/1635613"><span class="lab">2023-01-02 · Korridorrr</span><span><b>Death Bell Night x Korridorrr</b> — Tøtal, KamavoSian</span></a></li><li><a href="https://ra.co/events/1621308"><span class="lab">2022-12-02 · Fermata</span><span><b>Death Bell Night</b> — Tøtal, KamavoSian</span></a></li><li><a href="https://ra.co/events/1538430"><span class="lab">2022-06-03 · Motor Yerevan</span><span><b>ԵՌԱՆԿՅՈՒՆ festival</b> — daao, Henna Onna, Ge-ology, KAÍ, Leö Anîram, Stereo Express, Supacooks, Tøtal, RIKHTER, KamavoSian</span></a></li><li><a href="https://ra.co/events/1496355"><span class="lab">2022-02-11 · Motor Yerevan</span><span><b>Death Bell Night x The Basement</b> — Tøtal, Lucinee, KamavoSian</span></a></li><li><a href="https://ra.co/events/1490459"><span class="lab">2021-12-24 · Fermata</span><span><b>Death Bell x LEZVANI</b> — Henna Onna, Narek Simonian, thanakí, Tøtal, GFRND, KamavoSian</span></a></li><li><a href="https://ra.co/events/1468404"><span class="lab">2021-10-22 · Nine</span><span><b>Death Bell Night</b> — JohannesK, Tøtal, Duncan Macdonald, KamavoSian</span></a></li><li><a href="https://ra.co/events/1462476"><span class="lab">2021-09-11 · Fermata</span><span><b>Death Bell Night</b> — sardaryans, Förm, KamavoSian, Tøtal, KAÍ, GFRND</span></a></li><li><a href="https://ra.co/events/1455656"><span class="lab">2021-08-13 · Fermata</span><span><b>Death Bell Night</b> — Tøtal, KamavoSian, T_st</span></a></li><li><a href="https://ra.co/events/1438935"><span class="lab">2021-03-19 · Korridorrr</span><span><b>Death Bell Night</b> — Tøtal, KamavoSian, Förm</span></a></li><li><a href="https://ra.co/events/1289632"><span class="lab">2019-08-23 · Old Shoes Factory</span><span><b>Death Bell Night</b> — Regal, Tøtal, KamavoSian, Förm</span></a></li></ul></noscript>
     </div>
   </section>
 </main>
@@ -151,5 +173,5 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="cursor" id="cursor" aria-hidden="true"></div>
 
-<script src="assets/site.js?v=965c20b355"></script>
+<script src="assets/site.js?v=52ea0f5b79"></script>
 </html>
