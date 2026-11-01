@@ -216,7 +216,7 @@
         ? `<img src="${esc(u.cover)}" width="600" height="600" data-preload alt="Cover of ${esc(u.title)} by ${esc(u.artist)}">`
         : placeholder}${u.url ? "</a>" : "</span>"}
       <div class="nw-body">
-        <p class="lab"><span class="dot"></span>${u.preorder ? "Pre-order now" : "Upcoming release"}</p>
+        <p class="lab">${u.preorder ? "Pre-order now" : "Upcoming release"}</p>
         <p class="nw-cat" aria-hidden="true">${esc(u.cat || "New")}</p>
         <h3 class="title-stack"><span class="sr">${esc(u.cat || "")} </span><span class="a">${esc(u.artist)}</span> <span class="t">${esc(u.title)}</span></h3>
         ${u.note ? `<p class="lede">${esc(u.note)}</p>` : ""}
@@ -227,7 +227,7 @@
       </div>` : `
       ${placeholder}
       <div class="nw-body">
-        <p class="lab"><span class="dot"></span>Next in the catalogue</p>
+        <p class="lab">Next in the catalogue</p>
         <p class="nw-cat">DBR${String(lastCat + 1).padStart(3, "0")}</p>
         <h3 class="nw-tba">To be announced</h3>
         <p class="lede">The next Death Bell record is in the works. Follow the label on Bandcamp to get it the day it drops, and watch Instagram and SoundCloud for the first previews.</p>
@@ -258,7 +258,7 @@
       (upcoming.length
         ? upcoming.slice().reverse().map((x) => row(x.date ? dmy(x.date) : "TBA", x.date ? `In ${days(x.date)} d` : "Soon", x.cat, x.artist, x.title, x.url || BC, true)).join("")
         : `<li class="sempty"><span class="lab">No release dates announced yet</span></li>`) +
-      `<li class="now"><span class="lab"><span class="dot"></span>Today · ${dmy(today)}</span></li>` +
+      `<li class="now"><span class="lab">Today · ${dmy(today)}</span></li>` +
       released.slice(0, 5).map((r) => row(dmy(r.date), ago(r.date), r.cat, r.artist, r.title, r.page)).join("");
 
     // ways into the releases and events pages

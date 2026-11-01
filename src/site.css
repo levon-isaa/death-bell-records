@@ -45,7 +45,6 @@ img{max-width:100%;display:block}
 
 /* micro type */
 .lab{font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.dot{display:inline-block;width:7px;height:7px;background:var(--accent);box-shadow:0 0 12px var(--accent);vertical-align:1px;margin-right:8px}
 .lede{font-size:clamp(15px,1.15vw,17px);line-height:1.65;color:var(--muted);max-width:58ch}
 
 /* section head: title, count, link on one hairline */
