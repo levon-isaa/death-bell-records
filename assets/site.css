@@ -390,8 +390,12 @@ html.is-loading .loader{display:grid}
 .ld-log li span:last-child{color:var(--text)}
 .ld-bar{height:2px;background:var(--line);overflow:hidden}
 .ld-bar i{display:block;height:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--p,0))}
-@keyframes rise{from{opacity:0;transform:translateY(26px)}}
+/* The rise-in moves with top, not transform. A transform put each block on its own layer while it ran, and the
+   1px lines of the spec grid, tracklist and buttons (which sit between whole pixels) smeared and then snapped back
+   sharp: a flicker on every load. Moving with top keeps them on whole pixels throughout. */
+@keyframes rise{from{opacity:0;top:26px}}
 @media (prefers-reduced-motion:no-preference){
+  html.intro .hero-bar,html.intro .tilt,html.intro .hero-copy > *,html.intro .tracks,html.intro .page-head .wrap > *{position:relative;top:0}
   html.intro .hero-bar,html.intro .tilt,html.intro .hero-copy > *,html.intro .tracks{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
   html.intro .tilt{animation-delay:.05s}
   html.intro .hero-copy > :nth-child(1){animation-delay:.12s}
