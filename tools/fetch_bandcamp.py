@@ -4,6 +4,7 @@
 
 Downloads a 100px thumbnail (covers/<id>-t.jpg) for every release and a 700px cover
 (covers/<id>-l.jpg) for the newest nine, which the hero and release grid show.
+Pre-orders come through with their future release date and appear in the News section.
 """
 import html
 import json

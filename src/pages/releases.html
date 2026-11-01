@@ -1,0 +1,57 @@
+<main data-page="releases">
+  <section class="page-head" id="top" aria-labelledby="page-h">
+    <div class="wrap">
+      <div class="hero-bar">
+        <a class="lab" href="./">Death Bell Records</a>
+        <span class="lab">Index / Releases</span>
+        <span class="lab">From Bandcamp</span>
+      </div>
+      <h1 class="page-t" id="page-h">Releases</h1>
+      <div class="page-meta">
+        <p class="lede">Every Death Bell release: EPs, LPs, singles and the DBRVA compilations. Hard groove, industrial and hypnotic techno from Yerevan and from producers around the world, straight from the label's Bandcamp.</p>
+        <dl class="spec" id="rel-stats"></dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="latest" aria-labelledby="latest-h">
+    <div class="wrap">
+      <div class="sh">
+        <h2 class="sh-t" id="latest-h">Latest</h2>
+        <span class="lab" id="latest-sum">Newest first</span>
+        <a class="lab" href="./#news">Upcoming →</a>
+      </div>
+      <div class="cells rel-cells" id="covers"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="all" aria-labelledby="all-h">
+    <div class="wrap">
+      <div class="sh">
+        <h2 class="sh-t" id="all-h">All releases</h2>
+        <span class="lab" id="all-sum">Every release</span>
+        <span class="lab">Opens on Bandcamp</span>
+      </div>
+      <div class="toolbar" role="search">
+        <label class="search" for="q">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="m11 11 3.5 3.5"/></svg>
+          <span class="sr">Search releases</span>
+          <input id="q" type="search" placeholder="Search artist / title / cat. no." autocomplete="off">
+          <kbd class="kbd" title="Press / to search">/</kbd>
+        </label>
+        <div class="seg" id="types" role="group" aria-label="Release type">
+          <button class="on" type="button" data-type="">All</button>
+          <button type="button" data-type="EP">EP</button>
+          <button type="button" data-type="LP">LP</button>
+          <button type="button" data-type="VA">VA</button>
+          <button type="button" data-type="Single">Single</button>
+        </div>
+        <label class="select" for="year"><span class="sr">Year</span><select id="year"><option value="">All years</option></select></label>
+      </div>
+      <div class="thead" aria-hidden="true"><span></span><span>Cat.</span><span>Artist</span><span>Title</span><span class="ty">Type</span><span class="k">Trk</span><span>Length</span><span class="y">Year</span></div>
+      <ol class="table" id="rows"></ol>
+      <div class="empty" id="empty" hidden><span class="lab">No releases match</span><button class="btn sm" id="clear" type="button">Clear filters</button></div>
+      <div class="table-foot"><span class="lab" id="count" aria-live="polite"></span><a class="btn" href="https://deathbellrecords.bandcamp.com/music" target="_blank" rel="noopener">Bandcamp discography ↗</a></div>
+    </div>
+  </section>
+</main>

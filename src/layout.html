@@ -1,0 +1,78 @@
+<title><!--@TITLE@--></title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="<!--@DESC@-->">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=<!--@V_CSS@-->">
+<!--@HEAD@-->
+<script>
+// The loader plays when someone arrives at the site or reloads a page, not when they click between its own pages.
+(function () {
+  var nav = performance.getEntriesByType ? performance.getEntriesByType("navigation")[0] : null, type = nav ? nav.type : "navigate";
+  var base = location.href.replace(/[^/]*([?#].*)?$/, "");
+  if (type === "back_forward" || (type === "navigate" && document.referrer.indexOf(base) === 0)) return;
+  document.documentElement.classList.add("is-loading");
+})();
+// the browser skips the cross-fade between pages in a hidden tab; that is fine, so don't report it as an error
+["pageswap", "pagereveal"].forEach(function (type) {
+  addEventListener(type, function (e) { if (e.viewTransition) e.viewTransition.ready.catch(function () {}); });
+});
+</script>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="logo" viewBox="0 0 1376 1091"><path d="/*@LOGO@*/"/></symbol>
+</svg>
+
+<div class="loader" id="loader" role="status" aria-label="Loading Death Bell Records">
+  <div class="ld-top"><span class="lab">Death Bell Records</span><span class="lab">Yerevan · 40.18° N 44.50° E</span></div>
+  <div class="ld-mid">
+    <div class="ld-logo" id="ld-logo" aria-hidden="true">
+      <svg class="base" viewBox="0 0 1376 1091"><use href="#logo"/></svg>
+      <svg class="fill" viewBox="0 0 1376 1091"><use href="#logo"/></svg>
+    </div>
+    <p class="ld-pct" aria-hidden="true"><span id="ld-num">000</span><small>%</small></p>
+  </div>
+  <div class="ld-bottom">
+    <ol class="ld-log lab" id="ld-log"></ol>
+    <div class="ld-bar"><i id="ld-bar"></i></div>
+  </div>
+</div>
+
+<div class="ticker" aria-label="Latest releases"><div class="tk-track" id="ticker"></div></div>
+
+<header class="bar" id="bar">
+  <div class="wrap">
+    <a class="brand" href="<!--@HOME@-->" aria-label="Death Bell Records, home"><svg class="emblem" aria-hidden="true"><use href="#logo"/></svg><span class="name">Death Bell Records</span></a>
+    <nav class="links" id="links" aria-label="Main">
+<!--@NAV@-->
+    </nav>
+    <span class="clock" hidden><span class="city">Yerevan </span><b id="clock">--:--</b></span>
+    <a class="btn primary sm shop" href="https://deathbellrecords.bandcamp.com/" target="_blank" rel="noopener">Shop ↗</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="links" aria-label="Menu"><i></i></button>
+  </div>
+  <span class="progress" id="progress" aria-hidden="true"></span>
+</header>
+
+<!--@MAIN@-->
+
+<footer class="foot" id="contact">
+  <div class="wrap">
+    <p class="wordmark" id="wordmark" aria-hidden="true">Death Bell</p>
+    <div class="cells foot-cells">
+      <div><p class="lab">Label</p><p>Death Bell Records<br>Yerevan, Armenia</p></div>
+      <div><p class="lab">Coordinates</p><p class="tnum">40.1792° N<br>44.4991° E</p></div>
+      <div><p class="lab">Local time</p><p class="tnum"><span id="clock-l">--:--:--</span> AMT</p></div>
+      <div><p class="lab">Contact</p><p><a href="mailto:deathbellrecords@gmail.com">deathbellrecords@gmail.com</a></p><div><button class="btn sm" type="button" data-copy="deathbellrecords@gmail.com">Copy</button></div></div>
+    </div>
+    <div class="foot-bottom">
+      <span class="lab">© 2026 Death Bell Records · Artwork by Tøtal</span>
+      <a class="lab" href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<script src="assets/site.js?v=<!--@V_JS@-->"></script>
