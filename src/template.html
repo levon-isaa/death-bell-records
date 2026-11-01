@@ -287,7 +287,7 @@ html.has-cursor input,html.has-cursor select,html.has-cursor textarea{cursor:aut
 @media (hover:none),(pointer:coarse){.cursor,.kbd{display:none}}
 @media (prefers-reduced-motion:reduce){.table li.enter,.ev-list li.enter{animation:none}.tilt-in{transform:none!important}}
 
-/* ---------- first-visit loader ---------- */
+/* ---------- page loader ---------- */
 .loader{display:none}
 html.is-loading{overflow:hidden}
 html.is-loading .loader{display:grid}
@@ -373,7 +373,7 @@ html.is-loading .loader{display:grid}
   <symbol id="logo" viewBox="0 0 1376 1091"><path d="/*@LOGO@*/"/></symbol>
 </svg>
 
-<script>try{if(!localStorage.getItem("dbr:seen"))document.documentElement.classList.add("is-loading")}catch(e){document.documentElement.classList.add("is-loading")}</script>
+<script>document.documentElement.classList.add("is-loading")</script>
 <div class="loader" id="loader" role="status" aria-label="Loading Death Bell Records">
   <div class="ld-top"><span class="lab">Death Bell Records</span><span class="lab">Yerevan · 40.18° N 44.50° E</span></div>
   <div class="ld-mid">
@@ -726,7 +726,8 @@ html.is-loading .loader{display:grid}
     requestAnimationFrame(step);
   }
 
-  // ---------- first-visit loader: real progress on fonts and the first screen of artwork ----------
+  // ---------- page loader: real progress on fonts and the first screen of artwork;
+  // runs on every load, shorter once the visitor has the files cached ----------
   const loader = $("#loader");
   const revealed = new Promise((resolve) => {
     const root = document.documentElement;
@@ -751,7 +752,9 @@ html.is-loading .loader{display:grid}
     const typeLine = line("> Type · Geist / Geist Mono", "…");
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { fontsDone = 1; typeLine.textContent = "OK"; });
 
-    const total = art.length + 1, MIN = 1100, MAX = 6000, t0 = performance.now();
+    let seen = null;
+    try { seen = localStorage.getItem("dbr:seen"); } catch (e) { /* storage blocked: treat as a first visit */ }
+    const total = art.length + 1, MIN = seen ? 650 : 1100, MAX = 6000, t0 = performance.now();
     const paint = (p) => {
       num.textContent = String(Math.round(p * 100)).padStart(3, "0");
       bar.style.setProperty("--p", p.toFixed(3));
@@ -769,7 +772,7 @@ html.is-loading .loader{display:grid}
       finished = true;
       paint(1);
       line("> Ready", "▮");
-      try { localStorage.setItem("dbr:seen", "1"); } catch (e) { /* storage blocked: the loader shows again next time */ }
+      try { localStorage.setItem("dbr:seen", "1"); } catch (e) { /* storage blocked: every visit gets the full-length loader */ }
       setTimeout(() => {
         root.classList.add("intro");
         loader.classList.add("done");
