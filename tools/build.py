@@ -282,7 +282,7 @@ def gate_main(g, settings, cover):
     <div class="wrap">
       <div class="hero-bar">
         <a class="lab" href="./">Death Bell Records</a>
-        <span class="lab"><span class="dot live"></span>Free download</span>
+        <span class="lab"><span class="dot"></span>Free download</span>
         <span class="lab">{esc(fmt)}</span>
       </div>
       <div class="hero-grid">
