@@ -114,12 +114,10 @@ img{max-width:100%;display:block}
 
 /* ---------- hero ---------- */
 .hero{position:relative;isolation:isolate;overflow:hidden;padding-block:clamp(28px,3.4vw,48px) clamp(56px,7vw,104px)}
-.hero::before{content:"";position:absolute;inset:-30%;z-index:-2;background:var(--art) center/cover;filter:blur(120px) saturate(1.5);opacity:.28}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,6,6,.25),var(--bg) 85%)}
 .hero-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-bottom:14px;margin-bottom:clamp(24px,3vw,40px);border-bottom:1px solid var(--line)}
 .hero-bar .lab:first-child{color:var(--text)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,72px);align-items:start}
-.hero-cover{width:100%;height:auto;aspect-ratio:1;object-fit:cover;box-shadow:0 0 0 1px var(--line),0 60px 140px -50px var(--accent-a)}
+.hero-cover{width:100%;height:auto;aspect-ratio:1;object-fit:cover;box-shadow:0 0 0 1px var(--line)}
 .hero-copy{display:grid;gap:26px;align-content:start}
 .cat{font-weight:800;font-size:clamp(68px,10.5vw,176px);line-height:.8;letter-spacing:-.065em;color:transparent;-webkit-text-stroke:1.5px var(--text);margin-left:-.04em}
 .title-stack{display:grid;gap:4px;text-transform:uppercase}
@@ -266,8 +264,6 @@ img{max-width:100%;display:block}
 .tilt{position:relative;perspective:1100px}
 .tilt-in{position:relative;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .7s cubic-bezier(.2,.7,.2,1)}
 .tilt.active .tilt-in{transition:transform .12s linear}
-.glare{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.2),transparent 50%);mix-blend-mode:screen;opacity:0;transition:opacity .35s}
-.tilt.active .glare{opacity:1}
 .rc .iw{display:block;overflow:hidden;background:#000}
 .rc img{transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .6s}
 .rc:hover img{transform:scale(1.05)}
@@ -423,7 +419,7 @@ html.is-loading .loader{display:grid}
 <main>
   <h1 class="sr">Death Bell Records, techno label from Yerevan</h1>
 
-  <section class="hero" id="top" style="--art:url('covers/2029983464-l.jpg')" aria-labelledby="hero-h">
+  <section class="hero" id="top" aria-labelledby="hero-h">
     <div class="wrap">
       <div class="hero-bar">
         <span class="lab"><span class="dot live"></span>Out now</span>
@@ -433,7 +429,6 @@ html.is-loading .loader{display:grid}
       <div class="hero-grid">
         <div class="tilt" id="tilt"><div class="tilt-in">
           <img class="hero-cover" src="covers/2029983464-l.jpg" width="600" height="600" fetchpriority="high" decoding="async" alt="Cover of Controlled Damage EP by Tøtal">
-          <span class="glare" aria-hidden="true"></span>
         </div></div>
         <div class="hero-copy">
           <p class="cat" aria-hidden="true">DBR091</p>
@@ -1168,15 +1163,13 @@ html.is-loading .loader{display:grid}
         b.addEventListener("pointerleave", () => { b.style.transform = ""; });
       });
 
-      // hero cover tilts in 3D with a moving sheen
+      // hero cover tilts in 3D toward the pointer
       const tilt = $("#tilt"), tiltIn = tilt.querySelector(".tilt-in");
       tilt.addEventListener("pointermove", (e) => {
         const r = tilt.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
         tilt.classList.add("active");
         tiltIn.style.setProperty("--ry", `${((x - .5) * 12).toFixed(2)}deg`);
         tiltIn.style.setProperty("--rx", `${((.5 - y) * 12).toFixed(2)}deg`);
-        tiltIn.style.setProperty("--gx", `${(x * 100).toFixed(1)}%`);
-        tiltIn.style.setProperty("--gy", `${(y * 100).toFixed(1)}%`);
       });
       tilt.addEventListener("pointerleave", () => {
         tilt.classList.remove("active");
