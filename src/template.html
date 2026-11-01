@@ -1,0 +1,1099 @@
+<title>Death Bell Records</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Death Bell Records: independent techno label from Yerevan, Armenia. Hard groove, industrial and hypnotic techno, Death Bell Nights and the DBR Podcast.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="preload" as="image" href="covers/2029983464-l.jpg" fetchpriority="high">
+<style>
+/* Layout: an industrial spec sheet. Black ground with film grain, hairline grids, mono data, catalogue numbers as
+   display type, a white release ticker, Yerevan local time. Cells invert to white on hover. The only colour is the
+   newest cover's, sampled at load. */
+:root{
+  --bg:#060606;
+  --cell:#0c0c0d;
+  --cell-2:#141416;
+  --line:rgba(255,255,255,.13);
+  --line-soft:rgba(255,255,255,.07);
+  --text:#f2f2f2;
+  --muted:#9a9aa1;
+  --faint:#606067;
+  --ink:#060606;                   /* text on inverted (white) cells */
+  --accent:#e6e6e6;                /* replaced at load by the newest cover's colour */
+  --accent-a:rgba(230,230,230,.16);
+
+  --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+
+  --gut:max(clamp(16px,2.6vw,40px),env(safe-area-inset-left,0px));
+  --gut-r:max(clamp(16px,2.6vw,40px),env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:72px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);color:var(--text);font:400 15px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+section,footer,.ticker{overflow-x:clip}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+p,h1,h2,h3,h4{margin:0}
+img{max-width:100%;display:block}
+::selection{background:var(--text);color:var(--ink)}
+
+.wrap{max-width:1440px;margin-inline:auto;padding-left:var(--gut);padding-right:var(--gut-r)}
+.sec{padding-block:clamp(56px,8vw,120px)}
+
+/* micro type */
+.lab{font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.dot{display:inline-block;width:7px;height:7px;background:var(--accent);box-shadow:0 0 12px var(--accent);vertical-align:1px;margin-right:8px}
+@media (prefers-reduced-motion:no-preference){.dot.live{animation:blink 1.6s steps(1) infinite}}
+@keyframes blink{50%{opacity:.25}}
+.lede{font-size:clamp(15px,1.15vw,17px);line-height:1.65;color:var(--muted);max-width:58ch}
+
+/* section head: title, count, link on one hairline */
+.sh{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 28px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.sh-t{margin-right:auto;font-weight:700;font-size:clamp(30px,4.2vw,64px);line-height:.92;letter-spacing:-.05em;text-transform:uppercase}
+.sh a.lab{color:var(--text)}
+.sh a.lab:hover{color:var(--accent)}
+
+/* hairline cell grids */
+.cells{display:grid;border-left:1px solid var(--line)}
+.cells > *{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 20px;border:1px solid var(--line);background:transparent;color:var(--text);
+  font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
+.btn:hover{background:var(--text);color:var(--ink);border-color:var(--text)}
+.btn.primary{background:var(--text);color:var(--ink);border-color:var(--text)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent)}
+.btn.sm{min-height:34px;padding:0 12px;font-size:11px}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.emblem{fill:currentColor}
+
+/* ---------- ticker ---------- */
+.ticker{background:var(--text);color:var(--ink);height:34px;display:flex;align-items:center;position:relative}
+.tk-track{display:flex;width:max-content}
+@media (prefers-reduced-motion:no-preference){.tk-track{animation:tick 80s linear infinite}.ticker:hover .tk-track{animation-play-state:paused}}
+@keyframes tick{to{transform:translateX(-50%)}}
+.tk-track a,.tk-track span{display:inline-flex;align-items:center;gap:10px;padding-right:28px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.tk-track b{font-weight:500;padding:3px 6px;background:var(--ink);color:var(--text)}
+.tk-track a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- bar ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(6,6,6,.82);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:22px;height:62px}
+.brand{display:flex;align-items:center;gap:12px;font:600 13px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.brand svg{width:36px;height:29px}
+.links{display:flex;align-items:center;gap:24px;margin-left:auto}
+.links a{position:relative;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-block:8px;transition:color .15s}
+.links a:hover,.links a.on{color:var(--text)}
+.links a::before{content:"";position:absolute;left:-12px;top:50%;width:5px;height:5px;margin-top:-3px;background:var(--accent);transform:scale(0) rotate(45deg);transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.links a:hover::before{transform:scale(.6) rotate(45deg)}
+.links a.on::before{transform:none}
+.clock{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.clock b{font-weight:500;color:var(--text);font-variant-numeric:tabular-nums}
+.menu-btn{display:none;width:46px;height:46px;border:1px solid var(--line);background:none;color:var(--text);cursor:pointer;align-items:center;justify-content:center}
+.menu-btn i{position:relative;width:16px;height:1.5px;background:currentColor}
+.menu-btn i::before,.menu-btn i::after{content:"";position:absolute;left:0;width:16px;height:1.5px;background:currentColor;transition:transform .2s}
+.menu-btn i::before{top:-5px}.menu-btn i::after{top:5px}
+.bar.open .menu-btn i{background:transparent}
+.bar.open .menu-btn i::before{transform:translateY(5px) rotate(45deg)}
+.bar.open .menu-btn i::after{transform:translateY(-5px) rotate(-45deg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;isolation:isolate;overflow:hidden;padding-block:clamp(28px,3.4vw,48px) clamp(56px,7vw,104px)}
+.hero::before{content:"";position:absolute;inset:-30%;z-index:-2;background:var(--art) center/cover;filter:blur(120px) saturate(1.5);opacity:.28}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,6,6,.25),var(--bg) 85%)}
+.hero-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-bottom:14px;margin-bottom:clamp(24px,3vw,40px);border-bottom:1px solid var(--line)}
+.hero-bar .lab:first-child{color:var(--text)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,72px);align-items:start}
+.hero-cover{width:100%;height:auto;aspect-ratio:1;object-fit:cover;box-shadow:0 0 0 1px var(--line),0 60px 140px -50px var(--accent-a)}
+.hero-copy{display:grid;gap:26px;align-content:start}
+.cat{font-weight:800;font-size:clamp(68px,10.5vw,176px);line-height:.8;letter-spacing:-.065em;color:transparent;-webkit-text-stroke:1.5px var(--text);margin-left:-.04em}
+.title-stack{display:grid;gap:4px;text-transform:uppercase}
+.title-stack .a{font-weight:700;font-size:clamp(26px,2.9vw,46px);line-height:1;letter-spacing:-.035em}
+.title-stack .t{font-weight:300;font-size:clamp(26px,2.9vw,46px);line-height:1;letter-spacing:-.03em;color:#cfcfd3}
+.spec{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.spec div{display:grid;gap:6px;padding:12px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.spec dt{font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.spec dd{margin:0;font-size:14px;font-weight:500}
+.tracks{list-style:none;margin:clamp(28px,3.4vw,48px) 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.tracks li{display:grid;gap:10px;padding:14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tracks .n{font:500 11px var(--mono);letter-spacing:.08em;color:var(--faint)}
+.tracks .tt{font-weight:600;font-size:15px;letter-spacing:-.01em;text-transform:uppercase;line-height:1.15}
+.tracks .tl{font:500 12px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ---------- release cells ---------- */
+.rel-cells{grid-template-columns:repeat(4,minmax(0,1fr))}
+.rc{display:grid;gap:10px;align-content:start;padding:14px 14px 18px;transition:background .18s,color .18s}
+.rc img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;background:#000}
+.rc .m{display:flex;justify-content:space-between;gap:10px;margin-top:4px}
+.rc .a{font-weight:700;font-size:15px;line-height:1.2;letter-spacing:-.005em;text-transform:uppercase}
+.rc .t{font-size:14px;line-height:1.3;color:var(--muted);margin-top:-6px}
+.rc:hover{background:var(--text);color:var(--ink)}
+.rc:hover .lab,.rc:hover .t{color:#4a4a50}
+
+/* ---------- catalogue ---------- */
+.toolbar{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;padding-block:18px}
+.search{flex:1 1 300px;display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border:1px solid var(--line);background:var(--cell);color:var(--faint)}
+.search:focus-within{border-color:var(--text);color:var(--text)}
+.search svg{width:15px;height:15px;flex:none}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--text);font:500 13px var(--mono);letter-spacing:.04em}
+.search input::placeholder{color:var(--faint);text-transform:uppercase}
+.seg{display:flex;flex-wrap:wrap;border:1px solid var(--line)}
+.seg button{min-height:44px;padding:0 14px;border:0;border-right:1px solid var(--line);background:none;color:var(--muted);font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .15s,color .15s}
+.seg button:last-child{border-right:0}
+.seg button:hover{color:var(--text)}
+.seg button.on{background:var(--text);color:var(--ink)}
+.seg small{font-size:10px;opacity:.6;margin-left:6px}
+.select{position:relative;display:flex}
+.select select{appearance:none;-webkit-appearance:none;min-height:46px;padding:0 36px 0 14px;border:1px solid var(--line);border-radius:0;background:var(--cell);color:var(--text);font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.select select option{background:var(--cell);color:var(--text)}
+.select::after{content:"";position:absolute;right:15px;top:50%;width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.thead,.trow{display:grid;grid-template-columns:40px 6.6em minmax(0,1fr) minmax(0,1.35fr) 3.6em 3em 5em 3.4em;gap:16px;align-items:center;padding:8px 10px}
+.thead{padding-block:10px;border-bottom:1px solid var(--line)}
+.thead span{font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.table{list-style:none;margin:0;padding:0}
+.trow{border-bottom:1px solid var(--line-soft);transition:background .12s,color .12s}
+.trow img{width:40px;height:40px;object-fit:cover;background:#000}
+.trow .c,.trow .ty,.trow .k,.trow .l,.trow .y{font:500 12px var(--mono);letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.trow .y,.thead .y{text-align:right}
+.trow .a{font-weight:700;font-size:13px;letter-spacing:.01em;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trow .t{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trow:hover{background:var(--text);color:var(--ink)}
+.trow:hover *{color:var(--ink)!important}
+.badge{display:inline-block;margin-left:8px;padding:2px 6px;border:1px solid currentColor;font:500 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;vertical-align:1px}
+.table-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;padding-top:18px}
+.empty{padding:36px 10px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;border-bottom:1px solid var(--line)}
+
+/* ---------- residents ---------- */
+.res-cells{grid-template-columns:repeat(5,minmax(0,1fr))}
+.rs{display:grid;gap:12px;align-content:start;padding:14px 14px 18px}
+.rs .ph{overflow:hidden;background:#000}
+.rs img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;filter:grayscale(1) contrast(1.08) brightness(.92);transition:filter .45s,transform .6s cubic-bezier(.2,.7,.2,1)}
+.rs:hover img,.rs:focus-within img{filter:none;transform:scale(1.03)}
+.rs h3{font-weight:700;font-size:clamp(18px,1.5vw,22px);line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
+.rs-links{display:flex;flex-wrap:wrap;gap:6px 14px}
+.rs-links a{font:500 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);transition:color .15s,border-color .15s}
+.rs-links a:hover{color:var(--text);border-color:var(--accent)}
+
+/* ---------- events ---------- */
+.ev-top{grid-template-columns:minmax(0,.85fr) minmax(0,2fr)}
+.ev-next{display:grid;gap:20px;align-content:start;padding:clamp(18px,2vw,28px)}
+.ev-tba{font-weight:700;font-size:clamp(32px,3.4vw,54px);line-height:.92;letter-spacing:-.05em;text-transform:uppercase}
+.ev-next p:not(.lab):not(.ev-tba){color:var(--muted)}
+.ev-upcoming{list-style:none;margin:0;padding:0;display:grid}
+.ev-upcoming a{display:grid;gap:4px;padding:12px 0;border-top:1px solid var(--line)}
+.ev-upcoming .t{font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:-.01em}
+.ev-feature{display:grid;grid-template-columns:minmax(0,.6fr) minmax(0,1fr);gap:clamp(18px,2.4vw,36px);align-items:start;padding:clamp(18px,2vw,28px)}
+.ev-feature img{width:100%;height:auto;aspect-ratio:417/736;object-fit:cover;box-shadow:0 0 0 1px var(--line)}
+.ev-feature .body{display:grid;gap:16px;align-content:start}
+.ev-feature h3{font-weight:700;font-size:clamp(28px,2.8vw,44px);line-height:.95;letter-spacing:-.045em;text-transform:uppercase;text-wrap:balance}
+.lineup{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.lineup li{display:flex;align-items:baseline;gap:8px;padding-block:9px;border-bottom:1px solid var(--line);font-weight:700;font-size:16px;letter-spacing:-.005em;text-transform:uppercase}
+.lineup small{font:500 10px var(--mono);letter-spacing:.1em;color:var(--faint)}
+.quote{color:var(--muted)}
+.ehead,.erow{display:grid;grid-template-columns:7.6em minmax(0,1.05fr) minmax(0,1.45fr) 9.5em 1.4em;gap:18px;align-items:baseline;padding:12px 10px}
+.ehead{padding-block:10px;border-bottom:1px solid var(--line);margin-top:clamp(40px,5vw,72px)}
+.ehead span{font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.ev-list{list-style:none;margin:0;padding:0}
+.erow{border-bottom:1px solid var(--line-soft);transition:background .12s,color .12s}
+.erow .d{font:500 12px var(--mono);letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.erow .d b{display:block;font-weight:500;color:var(--text)}
+.erow .t{font-weight:700;font-size:15px;letter-spacing:-.005em;text-transform:uppercase}
+.erow .l{font-size:14px;color:var(--muted)}
+.erow .v{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.erow .go{color:var(--faint)}
+.erow:hover{background:var(--text);color:var(--ink)}
+.erow:hover *{color:var(--ink)!important}
+
+/* ---------- podcast ---------- */
+.pod{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr)}
+.pod > *{padding:clamp(18px,2vw,28px)}
+.pod img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+.pod .body{display:grid;gap:20px;align-content:center}
+.pod h3{font-weight:800;font-size:clamp(40px,5.6vw,92px);line-height:.86;letter-spacing:-.06em;text-transform:uppercase}
+.pod h3 span{display:block;color:transparent;-webkit-text-stroke:1.5px var(--text)}
+
+/* ---------- about ---------- */
+.about{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.about > *{padding:clamp(18px,2.2vw,32px)}
+.about-copy{display:grid;gap:20px;align-content:start}
+.about-copy .big{font-weight:500;font-size:clamp(20px,1.8vw,26px);line-height:1.35;letter-spacing:-.02em;max-width:34ch}
+.contact{display:grid;gap:6px;padding-top:20px;border-top:1px solid var(--line)}
+.contact a{font-weight:600;font-size:clamp(17px,1.5vw,21px);letter-spacing:-.01em}
+.contact a:hover{color:var(--accent)}
+.follow{list-style:none;margin:14px 0 0;padding:0;border-top:1px solid var(--line)}
+.follow a{display:grid;grid-template-columns:minmax(0,1fr) auto 1.2em;align-items:center;gap:16px;padding:13px 10px;border-bottom:1px solid var(--line-soft);transition:background .12s,color .12s}
+.follow .n{font-weight:700;font-size:15px;letter-spacing:.01em;text-transform:uppercase}
+.follow .h{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.follow .go{color:var(--faint)}
+.follow a:hover{background:var(--text);color:var(--ink)}
+.follow a:hover *{color:var(--ink)}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--line);padding-top:clamp(40px,5vw,72px)}
+.wordmark{font-weight:800;font-size:var(--wm,15vw);line-height:.78;letter-spacing:-.07em;text-transform:uppercase;white-space:nowrap;margin-left:-.03em;padding-bottom:.04em}
+.foot-cells{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:clamp(28px,4vw,56px);border-top:1px solid var(--line)}
+.foot-cells > div{display:grid;gap:8px;align-content:start;padding:16px 14px 20px}
+.foot-cells p:not(.lab){font-size:14px}
+.foot-cells a:hover{color:var(--accent)}
+.foot-cells .tnum{font-variant-numeric:tabular-nums}
+.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding-block:18px max(26px,env(safe-area-inset-bottom,0px))}
+.foot-bottom a:hover{color:var(--text)}
+
+/* ---------- micro-interactions ---------- */
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--p,0));pointer-events:none}
+.btn{transition:background .15s,color .15s,border-color .15s,transform .25s cubic-bezier(.2,.7,.2,1)}
+.btn:active{scale:.97}
+.lab b{font-weight:500;color:var(--text);font-variant-numeric:tabular-nums}
+.colon{font-style:normal}
+@media (prefers-reduced-motion:no-preference){.colon{animation:blink 1s steps(1) infinite}}
+.tk-track b{transition:background .15s,color .15s}
+.tk-track a:hover b{background:var(--accent);color:var(--ink)}
+.tilt{position:relative;perspective:1100px}
+.tilt-in{position:relative;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.tilt.active .tilt-in{transition:transform .12s linear}
+.glare{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.2),transparent 50%);mix-blend-mode:screen;opacity:0;transition:opacity .35s}
+.tilt.active .glare{opacity:1}
+.rc .iw{display:block;overflow:hidden;background:#000}
+.rc img{transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .6s}
+.rc:hover img{transform:scale(1.05)}
+.rc .a::after{content:"↗";display:inline-block;margin-left:6px;opacity:0;transform:translate(-4px,4px);transition:opacity .2s,transform .25s}
+.rc:hover .a::after{opacity:1;transform:none}
+.trow img{transition:transform .3s cubic-bezier(.2,.7,.2,1),opacity .6s}
+.trow:hover img{transform:scale(1.12)}
+.erow .go,.follow .go{display:inline-block;transition:transform .25s cubic-bezier(.2,.7,.2,1),color .15s}
+.erow:hover .go,.follow a:hover .go{transform:translate(3px,-3px)}
+.table li.enter,.ev-list li.enter{animation:rowIn .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rowIn{from{opacity:0;transform:translateY(8px)}}
+.kbd{font:500 11px/1 var(--mono);padding:4px 7px;border:1px solid var(--line);color:var(--faint);transition:opacity .15s}
+.search:focus-within .kbd{opacity:0}
+.copy-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+img.fade{opacity:0;transition:opacity .6s}
+img.fade.in{opacity:1}
+.toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom,0px));z-index:120;padding:12px 16px;background:var(--text);color:var(--ink);
+  font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;transform:translate(-50%,16px);opacity:0;transition:opacity .25s,transform .3s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.cursor{position:fixed;left:0;top:0;z-index:400;width:10px;height:10px;margin:-5px 0 0 -5px;background:#fff;mix-blend-mode:difference;pointer-events:none;opacity:0;
+  transition:width .22s cubic-bezier(.2,.7,.2,1),height .22s cubic-bezier(.2,.7,.2,1),margin .22s cubic-bezier(.2,.7,.2,1),opacity .2s,scale .12s}
+.cursor.on{opacity:1}
+.cursor.big{width:44px;height:44px;margin:-22px 0 0 -22px}
+.cursor.hide{opacity:0}
+.cursor.press{scale:.75}
+html.has-cursor,html.has-cursor *{cursor:none!important}
+html.has-cursor input,html.has-cursor select,html.has-cursor textarea{cursor:auto!important}
+@media (hover:none),(pointer:coarse){.cursor,.kbd{display:none}}
+@media (prefers-reduced-motion:reduce){.table li.enter,.ev-list li.enter{animation:none}.tilt-in{transform:none!important}}
+
+/* ---------- first-visit loader ---------- */
+.loader{display:none}
+html.is-loading{overflow:hidden}
+html.is-loading .loader{display:grid}
+.loader{position:fixed;inset:0;z-index:300;grid-template-rows:auto minmax(0,1fr) auto;gap:24px;background:var(--bg);color:var(--text);
+  padding:max(20px,env(safe-area-inset-top,0px)) var(--gut-r) max(24px,env(safe-area-inset-bottom,0px)) var(--gut);transition:transform 1s cubic-bezier(.76,0,.24,1)}
+.loader.done{transform:translateY(-100%)}
+.ld-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.ld-mid{display:grid;place-items:center;align-content:center;gap:clamp(20px,3vw,36px)}
+.ld-logo{position:relative;width:min(48vw,260px);aspect-ratio:1376/1091}
+.ld-logo svg{position:absolute;inset:0;width:100%;height:100%}
+.ld-logo .base{fill:rgba(255,255,255,.09)}
+.ld-logo .fill{fill:var(--text);clip-path:inset(var(--clip,100%) 0 0 0)}
+.ld-pct{font-weight:800;font-size:clamp(56px,9vw,128px);line-height:.8;letter-spacing:-.06em;font-variant-numeric:tabular-nums}
+.ld-pct small{font-size:.3em;font-weight:500;letter-spacing:0;margin-left:.1em;vertical-align:top;color:var(--muted)}
+.ld-bottom{display:grid;gap:14px}
+.ld-log{list-style:none;margin:0;padding:0;display:grid;gap:5px;min-height:8em;align-content:end}
+.ld-log li{display:flex;justify-content:space-between;gap:16px}
+.ld-log li span:last-child{color:var(--text)}
+.ld-bar{height:2px;background:var(--line);overflow:hidden}
+.ld-bar i{display:block;height:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--p,0))}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}}
+@media (prefers-reduced-motion:no-preference){
+  html.intro .hero-bar,html.intro .tilt,html.intro .hero-copy > *,html.intro .tracks{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+  html.intro .tilt{animation-delay:.05s}
+  html.intro .hero-copy > :nth-child(1){animation-delay:.12s}
+  html.intro .hero-copy > :nth-child(2){animation-delay:.18s}
+  html.intro .hero-copy > :nth-child(3){animation-delay:.24s}
+  html.intro .hero-copy > :nth-child(4){animation-delay:.3s}
+  html.intro .hero-copy > :nth-child(5){animation-delay:.36s}
+  html.intro .tracks{animation-delay:.42s}
+}
+@media (prefers-reduced-motion:reduce){.loader{transition:opacity .3s}.loader.done{transform:none;opacity:0}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .tracks{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .thead,.trow{grid-template-columns:40px 6.4em minmax(0,1fr) minmax(0,1.3fr) 5em 3.4em}
+  .thead .ty,.thead .k,.trow .ty,.trow .k{display:none}
+}
+@media (max-width:980px){
+  .links{display:none;position:absolute;top:62px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px var(--gut-r) 18px var(--gut);background:rgba(6,6,6,.97);border-bottom:1px solid var(--line)}
+  .links a{padding:15px 2px;font-size:13px;border-bottom:1px solid var(--line-soft)}
+  .links a::before{display:none}
+  .bar.open .links{display:flex}
+  .menu-btn{display:inline-flex}
+  .bar .clock{margin-left:auto}
+  .hero-grid{grid-template-columns:minmax(0,1fr)}
+  .tilt{max-width:560px}
+  .rel-cells{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .res-cells{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:38%;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--faint) transparent}
+  .rs{scroll-snap-align:start}
+  .ev-top{grid-template-columns:minmax(0,1fr)}
+  .ehead{display:none}
+  .erow{grid-template-columns:6.4em minmax(0,1fr) 1.4em;grid-template-areas:"d t go" "d l go";row-gap:4px;align-items:start}
+  .erow .d{grid-area:d}.erow .t{grid-area:t}.erow .l{grid-area:l}.erow .go{grid-area:go}.erow .v{display:none}
+  .pod{grid-template-columns:minmax(0,1fr)}
+  .pod img{max-width:420px}
+  .about{grid-template-columns:minmax(0,1fr)}
+  .foot-cells{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:700px){
+  .thead{display:none}
+  .trow{grid-template-columns:44px minmax(0,1fr) auto;grid-template-areas:"i a y" "i t c";row-gap:2px;column-gap:12px}
+  .trow img{grid-area:i;width:44px;height:44px}
+  .trow .a{grid-area:a}.trow .t{grid-area:t;color:var(--muted)}.trow .y{grid-area:y}.trow .c{grid-area:c;text-align:right}
+  .trow .l{display:none}
+  .spec{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tracks{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .res-cells{grid-auto-columns:72%}
+  .ev-feature{grid-template-columns:minmax(0,1fr)}
+  .ev-feature img{max-width:300px}
+  .seg{width:100%}
+  .seg button{flex:1 1 auto;padding:0 10px}
+}
+@media (max-width:520px){
+  .brand .name{display:none}
+  .bar .clock .city{display:none}
+  .foot-cells{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="logo" viewBox="0 0 1376 1091"><path d="/*@LOGO@*/"/></symbol>
+</svg>
+
+<script>try{if(!localStorage.getItem("dbr:seen"))document.documentElement.classList.add("is-loading")}catch(e){document.documentElement.classList.add("is-loading")}</script>
+<div class="loader" id="loader" role="status" aria-label="Loading Death Bell Records">
+  <div class="ld-top"><span class="lab">Death Bell Records</span><span class="lab">Yerevan · 40.18° N 44.50° E</span></div>
+  <div class="ld-mid">
+    <div class="ld-logo" id="ld-logo" aria-hidden="true">
+      <svg class="base" viewBox="0 0 1376 1091"><use href="#logo"/></svg>
+      <svg class="fill" viewBox="0 0 1376 1091"><use href="#logo"/></svg>
+    </div>
+    <p class="ld-pct" aria-hidden="true"><span id="ld-num">000</span><small>%</small></p>
+  </div>
+  <div class="ld-bottom">
+    <ol class="ld-log lab" id="ld-log"></ol>
+    <div class="ld-bar"><i id="ld-bar"></i></div>
+  </div>
+</div>
+
+<div class="ticker" aria-label="Latest releases"><div class="tk-track" id="ticker"></div></div>
+
+<header class="bar" id="bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Death Bell Records, back to top"><svg class="emblem" aria-hidden="true"><use href="#logo"/></svg><span class="name">Death Bell Records</span></a>
+    <nav class="links" id="links" aria-label="Main">
+      <a href="#releases">Releases</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#residents">Residents</a>
+      <a href="#events">Events</a>
+      <a href="#podcast">Podcast</a>
+      <a href="#about">About</a>
+    </nav>
+    <span class="clock" hidden><span class="city">Yerevan </span><b id="clock">--:--</b></span>
+    <a class="btn primary sm shop" href="https://deathbellrecords.bandcamp.com/" target="_blank" rel="noopener">Shop ↗</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="links" aria-label="Menu"><i></i></button>
+  </div>
+  <span class="progress" id="progress" aria-hidden="true"></span>
+</header>
+
+<main>
+  <h1 class="sr">Death Bell Records, techno label from Yerevan</h1>
+
+  <section class="hero" id="top" style="--art:url('covers/2029983464-l.jpg')" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hero-bar">
+        <span class="lab"><span class="dot live"></span>Out now</span>
+        <span class="lab">Latest release</span>
+        <span class="lab">Digital · Bandcamp</span>
+      </div>
+      <div class="hero-grid">
+        <div class="tilt" id="tilt"><div class="tilt-in">
+          <img class="hero-cover" src="covers/2029983464-l.jpg" width="600" height="600" fetchpriority="high" decoding="async" alt="Cover of Controlled Damage EP by Tøtal">
+          <span class="glare" aria-hidden="true"></span>
+        </div></div>
+        <div class="hero-copy">
+          <p class="cat" aria-hidden="true">DBR091</p>
+          <h2 class="title-stack" id="hero-h"><span class="sr">DBR091: </span><span class="a">Tøtal</span><span class="t">Controlled Damage EP</span></h2>
+          <p class="lede">Six tracks. One unsettled state of mind. An EP shaped around obsession, tension and the need to let go: from Consumed to Trace, what builds inside us, what breaks through, and what stays behind.</p>
+          <dl class="spec">
+            <div><dt>Format</dt><dd>Digital</dd></div>
+            <div><dt>Released</dt><dd>02.10.2026</dd></div>
+            <div><dt>Length</dt><dd>06 tracks · 31:16</dd></div>
+            <div><dt>Style</dt><dd>Hard groove</dd></div>
+            <div><dt>Mastering</dt><dd>Tøtal</dd></div>
+            <div><dt>Artwork</dt><dd>Tøtal</dd></div>
+          </dl>
+          <div class="actions">
+            <a class="btn primary" href="https://deathbellrecords.bandcamp.com/album/controlled-damage-ep-dbr091" target="_blank" rel="noopener">Buy on Bandcamp · $9</a>
+            <a class="btn" href="https://soundcloud.com/death-bell-979515783" target="_blank" rel="noopener">Listen on SoundCloud ↗</a>
+          </div>
+        </div>
+      </div>
+      <ol class="tracks" aria-label="Tracklist">
+        <li><span class="n">01</span><span class="tt">Consumed</span><span class="tl">5:20</span></li>
+        <li><span class="n">02</span><span class="tt">Controlled Damage</span><span class="tl">4:45</span></li>
+        <li><span class="n">03</span><span class="tt">Hidden Frequency</span><span class="tl">5:07</span></li>
+        <li><span class="n">04</span><span class="tt">Line</span><span class="tl">5:55</span></li>
+        <li><span class="n">05</span><span class="tt">Unbecoming</span><span class="tl">5:02</span></li>
+        <li><span class="n">06</span><span class="tt">Trace</span><span class="tl">5:07</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="releases" aria-labelledby="rel-h">
+    <div class="wrap">
+      <div class="sh">
+        <h2 class="sh-t" id="rel-h">Releases</h2>
+        <span class="lab" id="rel-sum">Latest</span>
+        <a class="lab" href="#catalogue">Full catalogue →</a>
+      </div>
+      <div class="cells rel-cells" id="covers"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="catalogue" aria-labelledby="cat-h">
+    <div class="wrap">
+      <div class="sh">
+        <h2 class="sh-t" id="cat-h">Catalogue</h2>
+        <span class="lab" id="cat-sum">All releases</span>
+        <span class="lab">Opens on Bandcamp</span>
+      </div>
+      <div class="toolbar" role="search">
+        <label class="search" for="q">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="m11 11 3.5 3.5"/></svg>
+          <span class="sr">Search the catalogue</span>
+          <input id="q" type="search" placeholder="Search artist / title / cat. no." autocomplete="off">
+          <kbd class="kbd" title="Press / to search">/</kbd>
+        </label>
+        <div class="seg" id="types" role="group" aria-label="Release type">
+          <button class="on" type="button" data-type="">All</button>
+          <button type="button" data-type="EP">EP</button>
+          <button type="button" data-type="LP">LP</button>
+          <button type="button" data-type="VA">VA</button>
+          <button type="button" data-type="Single">Single</button>
+        </div>
+        <label class="select" for="year"><span class="sr">Year</span><select id="year"><option value="">All years</option></select></label>
+      </div>
+      <div class="thead" aria-hidden="true"><span></span><span>Cat.</span><span>Artist</span><span>Title</span><span class="ty">Type</span><span class="k">Trk</span><span>Length</span><span class="y">Year</span></div>
+      <ol class="table" id="rows"></ol>
+      <div class="empty" id="empty" hidden><span class="lab">No releases match</span><button class="btn sm" id="clear" type="button">Clear filters</button></div>
+      <div class="table-foot"><span class="lab" id="count" aria-live="polite"></span><button class="btn" id="showall" type="button" hidden></button></div>
+    </div>
+  </section>
+
+  <section class="sec" id="residents" aria-labelledby="res-h">
+    <div class="wrap">
+      <div class="sh">
+        <h2 class="sh-t" id="res-h">Residents</h2>
+        <span class="lab">Yerevan</span>
+      </div>
+      <div class="cells res-cells" id="res-grid"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="events" aria-labelledby="ev-h">
+    <div class="wrap">
+      <div class="sh">
+        <h2 class="sh-t" id="ev-h">Death Bell Nights</h2>
+        <a class="lab" href="https://ra.co/promoters/90929" target="_blank" rel="noopener">Follow on RA ↗</a>
+      </div>
+      <div class="cells ev-top">
+        <article class="ev-next">
+          <p class="lab"><span class="dot live"></span>Next night</p>
+          <p class="ev-tba" id="ev-tba">To be announced</p>
+          <ol class="ev-upcoming" id="ev-upcoming" hidden></ol>
+          <p>More than 30 label nights in Yerevan, with the residents and guests from around the world. Follow the label to hear about the next one first.</p>
+          <div class="actions">
+            <a class="btn sm" href="https://ra.co/promoters/90929" target="_blank" rel="noopener">Resident Advisor ↗</a>
+            <a class="btn sm" href="https://instagram.com/deathbellrecords/" target="_blank" rel="noopener">Instagram ↗</a>
+          </div>
+        </article>
+        <article class="ev-feature">
+          <img src="events/10th-anniversary.jpg" width="417" height="736" loading="lazy" alt="Flyer for the Death Bell Records 10th anniversary at The How, 20 June 2026">
+          <div class="body">
+            <p class="lab">Most recent · Sat 20.06.2026 · 23:00–08:00</p>
+            <h3>10 years of Death Bell Records</h3>
+            <p class="lab" style="color:var(--text)">The How · Baghramyan 3, Yerevan</p>
+            <ul class="lineup" aria-label="Lineup">
+              <li>Förm <small>b2b</small> Arte Muradyan</li>
+              <li>Tøtal</li>
+              <li>KXAH <small>NYC</small></li>
+              <li>KamavoSian</li>
+              <li>Belluian <small>b2b</small> DPNN2</li>
+            </ul>
+            <p class="quote">“Let's ring the bells and shake the city.”</p>
+            <div class="actions"><a class="btn sm" href="https://ra.co/events/2470236" target="_blank" rel="noopener">Event on RA ↗</a></div>
+          </div>
+        </article>
+      </div>
+      <div class="ehead" aria-hidden="true"><span>Date</span><span>Night</span><span>Lineup</span><span>Venue</span><span></span></div>
+      <ol class="ev-list" id="ev-list"></ol>
+      <div class="table-foot"><span class="lab" id="ev-sum">Listed on Resident Advisor</span><button class="btn" id="ev-all" type="button" hidden></button></div>
+    </div>
+  </section>
+
+  <section class="sec" id="podcast" aria-labelledby="pod-h">
+    <div class="wrap">
+      <div class="sh">
+        <h2 class="sh-t">Podcast</h2>
+        <a class="lab" href="https://soundcloud.com/death-bell-979515783" target="_blank" rel="noopener">All episodes ↗</a>
+      </div>
+      <div class="cells pod">
+        <img src="podcast/dbr-podcast-68.jpg" width="500" height="500" loading="lazy" alt="DBR Podcast 68 artwork: Tøtal behind the decks">
+        <div class="body">
+          <p class="lab"><span class="dot"></span>Latest episode · 09.09.2026 · SoundCloud</p>
+          <h3 id="pod-h">DBR Podcast <span>68</span></h3>
+          <p class="lab" style="color:var(--text)">Mixed by Tøtal</p>
+          <p class="lede">The label's mix series. Episode 68 comes from the founder of Death Bell Records: hypnotic grooves, raw textures and driving rhythms, balancing tension with physical dancefloor energy.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://soundcloud.com/death-bell-979515783/total-dbr-podcast-68" target="_blank" rel="noopener">Listen to episode 68 ↗</a>
+            <a class="btn" href="https://soundcloud.com/death-bell-979515783" target="_blank" rel="noopener">All episodes ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <div class="sh">
+        <h2 class="sh-t" id="about-h">About</h2>
+        <span class="lab">Yerevan, Armenia</span>
+      </div>
+      <div class="cells about">
+        <div class="about-copy">
+          <p class="big">Death Bell Records is an independent techno label from Yerevan, founded by DJ, producer and sound engineer Tøtal.</p>
+          <p class="lede">The catalogue runs through hard groove, industrial and hypnotic techno: tight grooves, heavy low end, dry drums. Alongside the releases, the label runs Death Bell Nights and the DBR Podcast, connecting Yerevan's underground with artists from around the world. In June 2026 it celebrated ten years with its residents at The How.</p>
+          <div class="contact">
+            <p class="lab">Contact · demos · premieres</p>
+            <div class="copy-row"><a href="mailto:deathbellrecords@gmail.com">deathbellrecords@gmail.com</a><button class="btn sm" type="button" data-copy="deathbellrecords@gmail.com">Copy</button></div>
+          </div>
+        </div>
+        <div>
+          <p class="lab">Connect</p>
+          <ul class="follow">
+            <li><a href="https://deathbellrecords.bandcamp.com/" target="_blank" rel="noopener"><span class="n">Bandcamp</span><span class="h">Buy &amp; listen</span><span class="go">↗</span></a></li>
+            <li><a href="https://soundcloud.com/death-bell-979515783" target="_blank" rel="noopener"><span class="n">SoundCloud</span><span class="h">Premieres &amp; podcast</span><span class="go">↗</span></a></li>
+            <li><a href="https://instagram.com/deathbellrecords/" target="_blank" rel="noopener"><span class="n">Instagram</span><span class="h">@deathbellrecords</span><span class="go">↗</span></a></li>
+            <li><a href="https://facebook.com/DeathBellRec" target="_blank" rel="noopener"><span class="n">Facebook</span><span class="h">DeathBellRec</span><span class="go">↗</span></a></li>
+            <li><a href="https://ra.co/promoters/90929" target="_blank" rel="noopener"><span class="n">Resident Advisor</span><span class="h">Events</span><span class="go">↗</span></a></li>
+            <li><a href="https://www.beatport.com/label/death-bell-records/68797" target="_blank" rel="noopener"><span class="n">Beatport</span><span class="h">Label page</span><span class="go">↗</span></a></li>
+            <li><a href="https://www.discogs.com/label/1455594-Death-Bell-Records" target="_blank" rel="noopener"><span class="n">Discogs</span><span class="h">Label page</span><span class="go">↗</span></a></li>
+            <li><a href="https://t.me/deathbellrecords" target="_blank" rel="noopener"><span class="n">Telegram</span><span class="h">Channel</span><span class="go">↗</span></a></li>
+            <li><a href="https://t.me/+hC67RFGKQohlN2My" target="_blank" rel="noopener"><span class="n">Label Vault</span><span class="h">Telegram</span><span class="go">↗</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot" id="contact">
+  <div class="wrap">
+    <p class="wordmark" id="wordmark" aria-hidden="true">Death Bell</p>
+    <div class="cells foot-cells">
+      <div><p class="lab">Label</p><p>Death Bell Records<br>Yerevan, Armenia</p></div>
+      <div><p class="lab">Coordinates</p><p class="tnum">40.1792° N<br>44.4991° E</p></div>
+      <div><p class="lab">Local time</p><p class="tnum"><span id="clock-l">--:--:--</span> AMT</p></div>
+      <div><p class="lab">Contact</p><p><a href="mailto:deathbellrecords@gmail.com">deathbellrecords@gmail.com</a></p><div><button class="btn sm" type="button" data-copy="deathbellrecords@gmail.com">Copy</button></div></div>
+    </div>
+    <div class="foot-bottom">
+      <span class="lab">© 2026 Death Bell Records · Artwork by Tøtal</span>
+      <a class="lab" href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<script>
+(() => {
+  // Catalogue from deathbellrecords.bandcamp.com, newest first.
+  // [cat. no., artist, title, type, release date, tracks, length in seconds, Bandcamp path, cover id, has vinyl]
+  const DATA = /*@DATA@*/[];
+  const BC = "https://deathbellrecords.bandcamp.com/";
+  const ALIAS = { "Förm": "_förm" }; // same artist, spelled two ways on Bandcamp
+  const LABEL_ONLY = ["various artists", "death bell records"];
+
+  // Resident DJs, in the label's order. Photos are their RA / SoundCloud profile pictures.
+  const RESIDENTS = [
+    { name: "Förm", photo: "form.jpg",
+      links: [["RA", "https://ra.co/dj/form"], ["SoundCloud", "https://soundcloud.com/form_music"], ["Instagram", "https://www.instagram.com/_form_live/"]] },
+    { name: "KamavoSian", photo: "kamavosian.jpg",
+      links: [["RA", "https://ra.co/dj/kamavosian"], ["SoundCloud", "https://soundcloud.com/ando-kamavosyan"], ["Instagram", "https://instagram.com/kamavosian"]] },
+    { name: "Tøtal", photo: "total.jpg",
+      links: [["RA", "https://ra.co/dj/total"], ["SoundCloud", "https://soundcloud.com/tootal"], ["Instagram", "https://instagram.com/totalofficial/"], ["Bandcamp", "https://totaldbr.bandcamp.com"]] },
+    { name: "Arte Muradyan", photo: "arte-muradyan.jpg",
+      links: [["SoundCloud", "https://soundcloud.com/arte-muradyan"], ["Instagram", "https://instagram.com/artemuradyan/"], ["Beatport", "https://www.beatport.com/artist/arte-muradyan/758297"]] },
+    { name: "Belluian", photo: "belluian.jpg",
+      links: [["SoundCloud", "https://soundcloud.com/belluian"]] },
+  ];
+
+  // Death Bell nights from ra.co/promoters/90929, newest first. [date, title, lineup, venue, RA event id]
+  const EVENTS = [
+    ["2026-06-20", "Death Bell Records 10th Anniversary", "Förm b2b Arte Muradyan, Tøtal, KXAH (NYC), KamavoSian, Belluian b2b DPNN2", "The How", 2470236],
+    ["2026-04-17", "Death Bell Night with Lucia Lu", "Tøtal, Förm, Lucia Lu, KamavoSian, Yhii", "The How", 2411514],
+    ["2024-12-31", "Death Bell Night x Subcore x How", "hofmann (AM), Tøtal, Mixtinct, Xandra, KamavoSian", "The How", 2067828],
+    ["2024-12-14", "Death Bell Night", "Tøtal, KamavoSian, Mixtinct, Belluian", "Fermata", 2054598],
+    ["2024-09-27", "Death Bell x Woozy Tunes", "hayk karoyi, haramik, Maxwell (AM), KamavoSian, Tøtal", "Kitchen Lab", 2009918],
+    ["2024-04-06", "Death Bell Night", "Lucinee, Tøtal, KamavoSian, T_st", "Hayfilm Studio", 1887942],
+    ["2023-08-11", "Death Bell Night", "Tøtal, KamavoSian", "Fermata", 1754537],
+    ["2023-04-01", "Death Bell Night 7 Years", "Tøtal, Förm, GFRND, ROKS, KamavoSian", "TBA", 1675104],
+    ["2023-01-02", "Death Bell Night x Korridorrr", "Tøtal, KamavoSian", "Korridorrr", 1635613],
+    ["2022-12-02", "Death Bell Night", "Tøtal, KamavoSian", "Fermata", 1621308],
+    ["2022-06-03", "ԵՌԱՆԿՅՈՒՆ festival", "daao, Henna Onna, Ge-ology, KAÍ, Leö Anîram, Stereo Express, Supacooks, Tøtal, RIKHTER, KamavoSian", "Motor Yerevan", 1538430],
+    ["2022-02-11", "Death Bell Night x The Basement", "Tøtal, Lucinee, KamavoSian", "Motor Yerevan", 1496355],
+    ["2021-12-24", "Death Bell x LEZVANI", "Henna Onna, Narek Simonian, thanakí, Tøtal, GFRND, KamavoSian", "Fermata", 1490459],
+    ["2021-10-22", "Death Bell Night", "JohannesK, Tøtal, Duncan Macdonald, KamavoSian", "Nine", 1468404],
+    ["2021-09-11", "Death Bell Night", "sardaryans, Förm, KamavoSian, Tøtal, KAÍ, GFRND", "Fermata", 1462476],
+    ["2021-08-13", "Death Bell Night", "Tøtal, KamavoSian, T_st", "Fermata", 1455656],
+    ["2021-03-19", "Death Bell Night", "Tøtal, KamavoSian, Förm", "Korridorrr", 1438935],
+    ["2019-08-23", "Death Bell Night", "Regal, Tøtal, KamavoSian, Förm", "Old Shoes Factory", 1289632],
+  ].map(([date, title, lineup, venue, id]) => ({ date, title, lineup, venue, url: `https://ra.co/events/${id}` }));
+
+  const R = DATA.map(([cat, artist, title, type, date, tracks, length, path, art, vinyl]) => ({
+    cat, artist, title, type, date, tracks, length, url: BC + path, art, vinyl,
+    year: +date.slice(0, 4),
+    names: LABEL_ONLY.includes(artist.toLowerCase()) ? [] : artist.split(", ").map((a) => ALIAS[a.trim()] || a.trim()),
+  }));
+
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const mmss = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  const dmy = (d) => d.split("-").reverse().join(".");
+  const pad = (n) => String(n).padStart(2, "0");
+  const WD = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const today = new Date().toISOString().slice(0, 10);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  // ---------- micro-interaction helpers ----------
+  // images fade in as they arrive
+  function fadeIn(root) {
+    root.querySelectorAll("img").forEach((img) => {
+      if (img.complete || img.classList.contains("fade")) return;
+      img.classList.add("fade");
+      const show = () => img.classList.add("in");
+      img.addEventListener("load", show, { once: true });
+      img.addEventListener("error", show, { once: true });
+    });
+  }
+  // text decodes from random glyphs into the real label
+  const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=/<>";
+  function scramble(el, dur = 420) {
+    if (reduce || !el) return;
+    const final = el._final ?? el.textContent;
+    el._final = final;
+    cancelAnimationFrame(el._raf);
+    const t0 = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / dur), n = Math.floor(p * final.length);
+      let out = "";
+      for (let i = 0; i < final.length; i++) out += i < n || final[i] === " " ? final[i] : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+      el.textContent = out;
+      if (p < 1) el._raf = requestAnimationFrame(step);
+      else { el.textContent = final; el._final = undefined; }
+    };
+    el._raf = requestAnimationFrame(step);
+  }
+  // freshly rendered rows slide in, one after another
+  function stagger(list, animate) {
+    if (!animate || reduce) return;
+    [...list.children].slice(0, 24).forEach((li, i) => { li.classList.add("enter"); li.style.animationDelay = `${i * 14}ms`; });
+  }
+  // numbers tick up to their value when they come into view
+  function countUp(el) {
+    if (reduce) return;
+    const end = +el.dataset.count, width = el.textContent.length, t0 = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / 900);
+      el.textContent = String(Math.round(end * (1 - Math.pow(1 - p, 3)))).padStart(width, "0");
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  // ---------- first-visit loader: real progress on fonts and the first screen of artwork ----------
+  const loader = $("#loader");
+  const revealed = new Promise((resolve) => {
+    const root = document.documentElement;
+    if (!root.classList.contains("is-loading")) { loader.remove(); resolve(); return; }
+    const log = $("#ld-log"), num = $("#ld-num"), bar = $("#ld-bar"), logo = $("#ld-logo");
+    const line = (label, value = "") => {
+      const li = document.createElement("li");
+      li.innerHTML = `<span>${label}</span><span>${value}</span>`;
+      log.append(li);
+      return li.lastChild;
+    };
+    line("> Init Death Bell Records", "Yerevan");
+    line(`> Catalogue · ${R.length} releases`, "OK");
+    const art = R.slice(0, 9).map((r) => `covers/${r.art}-l.jpg`);
+    let artDone = 0, fontsDone = 0, shown = 0, finished = false, ended = false;
+    const artLine = line("> Artwork", `00/${pad(art.length)}`);
+    art.forEach((src) => {
+      const img = new Image();
+      img.onload = img.onerror = () => { artDone++; artLine.textContent = artDone === art.length ? "OK" : `${pad(artDone)}/${pad(art.length)}`; };
+      img.src = src;
+    });
+    const typeLine = line("> Type · Geist / Geist Mono", "…");
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { fontsDone = 1; typeLine.textContent = "OK"; });
+
+    const total = art.length + 1, MIN = 1100, MAX = 6000, t0 = performance.now();
+    const paint = (p) => {
+      num.textContent = String(Math.round(p * 100)).padStart(3, "0");
+      bar.style.setProperty("--p", p.toFixed(3));
+      logo.style.setProperty("--clip", `${((1 - p) * 100).toFixed(1)}%`);
+    };
+    const end = () => {
+      if (ended) return;
+      ended = true;
+      root.classList.remove("is-loading");
+      loader.remove();
+      resolve();
+    };
+    function finish() {
+      if (finished) return;
+      finished = true;
+      paint(1);
+      line("> Ready", "▮");
+      try { localStorage.setItem("dbr:seen", "1"); } catch (e) { /* storage blocked: the loader shows again next time */ }
+      setTimeout(() => {
+        root.classList.add("intro");
+        loader.classList.add("done");
+        loader.addEventListener("transitionend", end, { once: true });
+        setTimeout(end, reduce ? 350 : 1200);
+      }, 260);
+    }
+    const frame = (now) => {
+      if (finished) return;
+      const elapsed = now - t0;
+      const goal = elapsed > MAX ? 1 : Math.min((artDone + fontsDone) / total, elapsed / MIN);
+      shown += (goal - shown) * (reduce ? 1 : .14);
+      if (goal - shown < .003) shown = goal;
+      paint(shown);
+      if (shown >= 1) finish(); else requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+    setTimeout(finish, MAX + 300); // backstop if animation frames are paused
+  });
+
+  // ---------- menu (small screens) ----------
+  const bar = $("#bar"), menuBtn = $("#menu-btn");
+  menuBtn.addEventListener("click", () => {
+    const open = bar.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", open);
+  });
+  $("#links").addEventListener("click", (e) => {
+    if (e.target.closest("a")) { bar.classList.remove("open"); menuBtn.setAttribute("aria-expanded", false); }
+  });
+
+  // ---------- Yerevan local time ----------
+  const clockFmt = (opts) => { try { return new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Yerevan", hour12: false, ...opts }); } catch (e) { return null; } };
+  const fShort = clockFmt({ hour: "2-digit", minute: "2-digit" }), fLong = clockFmt({ hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  if (fShort) {
+    document.querySelector(".clock").hidden = false;
+    const tickClock = () => { const d = new Date(); $("#clock").innerHTML = fShort.format(d).replace(":", '<i class="colon">:</i>'); $("#clock-l").textContent = fLong.format(d); };
+    tickClock();
+    setInterval(tickClock, 1000);
+  }
+
+  // ---------- ticker: latest releases, duplicated for a seamless loop ----------
+  const tickerItems = R.slice(0, 12).map((r) =>
+    `<a href="${r.url}" target="_blank" rel="noopener"><b>${r.cat || r.type}</b>${esc(r.artist)} — ${esc(r.title)}</a>`).join("");
+  $("#ticker").innerHTML = `<span class="sr">Latest releases: </span>${tickerItems}<span aria-hidden="true" style="display:contents">${tickerItems.replace(/<a /g, '<a tabindex="-1" ')}</span>`;
+
+  // ---------- release cells: the eight after the hero ----------
+  $("#rel-sum").innerHTML = `<b data-count="8">08</b> of ${R.length}`;
+  $("#covers").innerHTML = R.slice(1, 9).map((r) => `
+    <a class="rc" href="${r.url}" target="_blank" rel="noopener">
+      <span class="iw"><img src="covers/${r.art}-l.jpg" width="600" height="600" loading="lazy" alt="Cover of ${esc(r.title)} by ${esc(r.artist)}"></span>
+      <span class="m"><span class="lab">${r.cat || r.type}</span><span class="lab">${dmy(r.date)}</span></span>
+      <span class="a">${esc(r.artist)}</span>
+      <span class="t">${esc(r.title)}</span>
+    </a>`).join("");
+
+  // the site's one colour: sampled from the newest cover
+  function rgbToHs(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, dd = mx - mn;
+    if (!dd) return [0, 0];
+    const s = dd / (1 - Math.abs(2 * l - 1));
+    const h = mx === r ? ((g - b) / dd) % 6 : mx === g ? (b - r) / dd + 2 : (r - g) / dd + 4;
+    return [Math.round((h * 60 + 360) % 360), Math.round(s * 100)];
+  }
+  (function accentFromCover(src) {
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const c = document.createElement("canvas"), N = 48;
+        c.width = c.height = N;
+        const x = c.getContext("2d");
+        x.drawImage(img, 0, 0, N, N);
+        const d = x.getImageData(0, 0, N, N).data;
+        let r = 0, g = 0, b = 0, w = 0;
+        for (let i = 0; i < d.length; i += 4) {
+          const mx = Math.max(d[i], d[i + 1], d[i + 2]), mn = Math.min(d[i], d[i + 1], d[i + 2]);
+          const sat = mx ? (mx - mn) / mx : 0;
+          if (sat > .35 && mx > 70) { const k = sat * mx; r += d[i] * k; g += d[i + 1] * k; b += d[i + 2] * k; w += k; }
+        }
+        if (!w) return;
+        const [h, s] = rgbToHs(r / w, g / w, b / w), sat = Math.min(85, Math.max(50, s));
+        const root = document.documentElement.style;
+        root.setProperty("--accent", `hsl(${h} ${sat}% 58%)`);
+        root.setProperty("--accent-a", `hsl(${h} ${sat}% 50% / .22)`);
+      } catch (e) { /* keep the neutral default */ }
+    };
+    img.src = src;
+  })(`covers/${R[0].art}-t.jpg`);
+
+  // ---------- catalogue ----------
+  const qEl = $("#q"), yearEl = $("#year"), typesEl = $("#types");
+  let type = "", expanded = false;
+  const LIMIT = 15; // newest rows shown before "Show all"; search and filters always cover everything
+  [...new Set(R.map((r) => r.year))].sort((a, b) => b - a)
+    .forEach((y) => yearEl.insertAdjacentHTML("beforeend", `<option>${y}</option>`));
+  const kinds = R.reduce((m, r) => ((m[r.type] = (m[r.type] || 0) + 1), m), {});
+  typesEl.querySelectorAll("button").forEach((b) => {
+    b.insertAdjacentHTML("beforeend", `<small>${b.dataset.type ? kinds[b.dataset.type] || 0 : R.length}</small>`);
+  });
+  $("#cat-sum").innerHTML = `<b data-count="${R.length}">${R.length}</b> releases`;
+
+  function renderRows(animate) {
+    const q = qEl.value.trim().toLowerCase(), y = +yearEl.value;
+    const filtered = !!(q || type || y);
+    const all = R.filter((r) =>
+      (!q || `${r.cat} ${r.artist} ${r.names.join(" ")} ${r.title}`.toLowerCase().includes(q)) &&
+      (!type || r.type === type) && (!y || r.year === y));
+    const list = filtered || expanded ? all : all.slice(0, LIMIT);
+    $("#rows").innerHTML = list.map((r) => `
+      <li><a class="trow" href="${r.url}" target="_blank" rel="noopener">
+        <img src="covers/${r.art}-t.jpg" width="40" height="40" loading="lazy" decoding="async" alt="">
+        <span class="c">${r.cat || "—"}</span>
+        <span class="a">${esc(r.artist)}</span>
+        <span class="t">${esc(r.title)}${r.vinyl ? '<span class="badge">Vinyl</span>' : ""}</span>
+        <span class="ty">${r.type}</span>
+        <span class="k">${pad(r.tracks)}</span>
+        <span class="l">${mmss(r.length)}</span>
+        <span class="y">${r.year}</span>
+      </a></li>`).join("");
+    stagger($("#rows"), animate);
+    fadeIn($("#rows"));
+    $("#empty").hidden = all.length > 0;
+    const more = $("#showall");
+    more.hidden = list.length === all.length;
+    more.textContent = `Show all ${all.length}`;
+    $("#count").textContent = `Showing ${pad(list.length)} / ${R.length}`;
+  }
+  typesEl.addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    type = b.dataset.type;
+    typesEl.querySelectorAll("button").forEach((c) => c.classList.toggle("on", c === b));
+    renderRows(true);
+  });
+  $("#showall").addEventListener("click", () => { expanded = true; renderRows(true); });
+  qEl.addEventListener("input", () => renderRows(true));
+  yearEl.addEventListener("change", () => renderRows(true));
+  $("#clear").addEventListener("click", () => {
+    qEl.value = ""; yearEl.value = ""; type = "";
+    typesEl.querySelectorAll("button").forEach((c) => c.classList.toggle("on", !c.dataset.type));
+    renderRows(true); qEl.focus();
+  });
+  renderRows();
+
+  // ---------- residents ----------
+  $("#res-grid").innerHTML = RESIDENTS.map((p) => `
+    <article class="rs">
+      <div class="ph"><img src="residents/${p.photo}" loading="lazy" alt="${esc(p.name)}"></div>
+      <h3>${esc(p.name)}</h3>
+      <div class="rs-links">${p.links.map(([l, u]) => `<a href="${u}" target="_blank" rel="noopener">${l} ↗</a>`).join("")}</div>
+    </article>`).join("");
+
+  // ---------- events ----------
+  const upcoming = EVENTS.filter((e) => e.date >= today).reverse();
+  const past = EVENTS.filter((e) => e.date < today);
+  if (upcoming.length) {
+    $("#ev-tba").hidden = true;
+    const ul = $("#ev-upcoming");
+    ul.hidden = false;
+    ul.innerHTML = upcoming.map((e) => `<li><a href="${e.url}" target="_blank" rel="noopener"><span class="lab">${dmy(e.date)} · ${esc(e.venue)}</span><span class="t">${esc(e.title)}</span><span class="lab">${esc(e.lineup)}</span></a></li>`).join("");
+  }
+  $("#ev-sum").innerHTML = `<b data-count="${past.length}">${pad(past.length)}</b> nights listed on Resident Advisor`;
+  let evExpanded = false;
+  function renderEvents(animate) {
+    const list = evExpanded ? past : past.slice(0, 8);
+    $("#ev-list").innerHTML = list.map((e) => `
+      <li><a class="erow" href="${e.url}" target="_blank" rel="noopener">
+        <span class="d"><b>${dmy(e.date)}</b>${WD[new Date(e.date + "T12:00:00").getDay()]}</span>
+        <span class="t">${esc(e.title)}</span>
+        <span class="l">${esc(e.lineup)}</span>
+        <span class="v">${esc(e.venue)}</span>
+        <span class="go" aria-hidden="true">↗</span>
+      </a></li>`).join("");
+    stagger($("#ev-list"), animate);
+    const btn = $("#ev-all");
+    btn.hidden = list.length === past.length;
+    btn.textContent = `Show all ${past.length}`;
+  }
+  $("#ev-all").addEventListener("click", () => { evExpanded = true; renderEvents(true); });
+  renderEvents();
+
+  // ---------- footer wordmark: fill the width ----------
+  const wm = $("#wordmark");
+  function fitWordmark() {
+    wm.style.setProperty("--wm", "100px");
+    const rg = document.createRange();
+    rg.selectNodeContents(wm);
+    wm.style.setProperty("--wm", `${Math.min(100 * wm.clientWidth / rg.getBoundingClientRect().width * .99, 400).toFixed(1)}px`);
+  }
+  fitWordmark();
+  if (document.fonts) document.fonts.ready.then(fitWordmark);
+  let wmRaf = 0;
+  addEventListener("resize", () => { cancelAnimationFrame(wmRaf); wmRaf = requestAnimationFrame(fitWordmark); });
+
+  // ---------- nav: mark the section in view ----------
+  const links = [...document.querySelectorAll('#links a[href^="#"]')];
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) links.forEach((l) => l.classList.toggle("on", l.getAttribute("href") === "#" + e.target.id));
+    });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  links.forEach((l) => { const s = document.querySelector(l.getAttribute("href")); if (s) io.observe(s); });
+  io.observe($("#top")); // back in the hero: no section marked
+
+  // ---------- micro-interactions ----------
+  fadeIn(document);
+
+  // scroll progress under the bar
+  const progress = $("#progress");
+  let progRaf = 0;
+  const setProgress = () => {
+    progRaf = 0;
+    const h = document.documentElement.scrollHeight - innerHeight;
+    progress.style.setProperty("--p", h > 0 ? (scrollY / h).toFixed(4) : 0);
+  };
+  addEventListener("scroll", () => { if (!progRaf) progRaf = requestAnimationFrame(setProgress); }, { passive: true });
+  setProgress();
+
+  // catalogue number decodes on load; section titles decode as they come into view
+  revealed.then(() => scramble(document.querySelector(".cat"), 900));
+  const titleIO = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { scramble(e.target, 650); titleIO.unobserve(e.target); }
+  }), { threshold: .6 });
+  document.querySelectorAll(".sh-t").forEach((h) => titleIO.observe(h));
+
+  const countIO = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { countUp(e.target); countIO.unobserve(e.target); }
+  }), { threshold: .8 });
+  document.querySelectorAll("[data-count]").forEach((el) => countIO.observe(el));
+
+  // copy the contact email
+  const toast = $("#toast");
+  let toastTimer = 0;
+  const say = (msg) => {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+  };
+  document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", () => {
+    const done = () => { say("Email copied"); b.textContent = "Copied ✓"; setTimeout(() => { b.textContent = "Copy"; }, 1600); };
+    const fallback = () => {
+      const a = b.closest("div").parentElement.querySelector('a[href^="mailto"]') || b.parentElement.querySelector('a[href^="mailto"]');
+      if (a) { const rg = document.createRange(); rg.selectNodeContents(a); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(rg); }
+      say("Selected: press Ctrl+C / ⌘C");
+    };
+    try { navigator.clipboard.writeText(b.dataset.copy).then(done, fallback); } catch (e) { fallback(); }
+  }));
+
+  // press / to search the catalogue
+  addEventListener("keydown", (e) => {
+    if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey || /^(input|select|textarea)$/i.test(document.activeElement.tagName)) return;
+    e.preventDefault();
+    qEl.focus({ preventScroll: true });
+    qEl.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+  });
+
+  if (fine) {
+    // labels scramble on hover
+    document.querySelectorAll(".links a, .btn:not(#showall):not(#ev-all):not([data-copy]), .sh a.lab, .foot-bottom a").forEach((el) => {
+      if (el.children.length) return;
+      el.setAttribute("aria-label", el.textContent.trim());
+      el.addEventListener("mouseenter", () => scramble(el, 380));
+    });
+    document.querySelectorAll(".follow a").forEach((a) => a.addEventListener("mouseenter", () => scramble(a.querySelector(".n"), 380)));
+    document.querySelectorAll(".rs").forEach((c) => c.addEventListener("mouseenter", () => scramble(c.querySelector("h3"), 420)));
+    $("#covers").addEventListener("mouseover", (e) => {
+      const cell = e.target.closest(".rc");
+      if (cell && !cell.contains(e.relatedTarget)) scramble(cell.querySelector(".a"), 380);
+    });
+
+    if (!reduce) {
+      // primary buttons lean toward the pointer
+      document.querySelectorAll(".btn.primary").forEach((b) => {
+        b.addEventListener("pointermove", (e) => {
+          const r = b.getBoundingClientRect();
+          b.style.transform = `translate(${((e.clientX - r.left) / r.width - .5) * 10}px, ${((e.clientY - r.top) / r.height - .5) * 8}px)`;
+        });
+        b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+      });
+
+      // hero cover tilts in 3D with a moving sheen
+      const tilt = $("#tilt"), tiltIn = tilt.querySelector(".tilt-in");
+      tilt.addEventListener("pointermove", (e) => {
+        const r = tilt.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        tilt.classList.add("active");
+        tiltIn.style.setProperty("--ry", `${((x - .5) * 12).toFixed(2)}deg`);
+        tiltIn.style.setProperty("--rx", `${((.5 - y) * 12).toFixed(2)}deg`);
+        tiltIn.style.setProperty("--gx", `${(x * 100).toFixed(1)}%`);
+        tiltIn.style.setProperty("--gy", `${(y * 100).toFixed(1)}%`);
+      });
+      tilt.addEventListener("pointerleave", () => {
+        tilt.classList.remove("active");
+        tiltIn.style.setProperty("--rx", "0deg");
+        tiltIn.style.setProperty("--ry", "0deg");
+      });
+    }
+
+    // square cursor: inverts what it covers, grows over anything clickable
+    const cursor = $("#cursor");
+    document.documentElement.classList.add("has-cursor");
+    let tx = -100, ty = -100, cx = -100, cy = -100, curRaf = 0;
+    const ease = reduce ? 1 : .3;
+    const follow = () => {
+      cx += (tx - cx) * ease; cy += (ty - cy) * ease;
+      cursor.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0)`;
+      curRaf = Math.abs(tx - cx) + Math.abs(ty - cy) > .3 ? requestAnimationFrame(follow) : 0;
+    };
+    addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      tx = e.clientX; ty = e.clientY;
+      cursor.classList.add("on");
+      cursor.classList.toggle("big", !!e.target.closest("a, button, label.select"));
+      cursor.classList.toggle("hide", !!e.target.closest("input, select, textarea"));
+      if (!curRaf) curRaf = requestAnimationFrame(follow);
+    }, { passive: true });
+    document.documentElement.addEventListener("mouseleave", () => cursor.classList.remove("on"));
+    addEventListener("pointerdown", () => cursor.classList.add("press"));
+    addEventListener("pointerup", () => cursor.classList.remove("press"));
+  }
+})();
+</script>
